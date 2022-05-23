@@ -15,3 +15,26 @@ int main()
     int arr[n] = {1,2,3,4,5};
     cout<<ArraySum(arr,n - 1);
 }
+// Approach 2
+#include<bits/stdc++.h>
+using namespace std;
+int ArraySum(int arr[],int n)
+{
+    if(n == 0){
+        return 0;
+    }
+    if(n == 1){
+        return arr[0];
+    }
+    else{
+        int chottiproblem = ArraySum(arr+1,n-1);
+        int baddiproblem = arr[0] + chottiproblem;
+        return baddiproblem;
+    }
+}
+int main()
+{
+    int n = 5;
+    int arr[n] = {2,4,9,9,9};
+    cout<<ArraySum(arr,n);
+}
