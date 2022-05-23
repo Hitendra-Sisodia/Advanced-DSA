@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+int countdistinctwaystoclimbchairs(int n)
+{
+    if(n < 0){
+        return 0;
+    }
+    if(n == 0){
+        return 1;
+    }
+    else{
+        // stand on particular 1 stair and add no of ways to reach that  1 stair forget about all other chair as recursion op will handle.
+        return countdistinctwaystoclimbchairs(n-1) + countdistinctwaystoclimbchairs(n-2);
+    }
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    cout<<countdistinctwaystoclimbchairs(n);
+}
