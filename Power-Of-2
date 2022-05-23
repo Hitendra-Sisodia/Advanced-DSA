@@ -1,0 +1,19 @@
+#include<bits/stdc++.h>
+using namespace std;
+int power(int n)
+{
+    if(n == 0){
+        return 1;
+    }
+    else{
+        int chottiproblem = power(n-1);
+        int baddiproblem = 2 * chottiproblem;
+        return baddiproblem;
+    }
+}
+int main()
+{
+    int n;
+    cin>>n;
+    cout<<power(n);
+}
