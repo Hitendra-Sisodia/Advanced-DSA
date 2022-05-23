@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool sortarray(int arr[],int n)
+{   
+    if(n == 0){   // decrement size of array(n-1) will decided how much item arr get incremented.
+        return true;
+    }
+    if(*(arr) > *(arr+1)){  // jese hi click hui wese hi false return hoga
+        return false;
+    }
+    else{
+        bool ans = sortarray(arr+1,n-1);
+        return ans;
+    }
+}
+int main()
+{
+    int n = 5;
+    int arr[n] = {1,2,3,40,5};
+    cout<<sortarray(arr,n-1);
+}
