@@ -15,6 +15,8 @@ int main()
     int arr[n] = {1,2,3,4,5};
     cout<<ArraySum(arr,n - 1);
 }
+
+
 // Approach 2
 #include<bits/stdc++.h>
 using namespace std;
