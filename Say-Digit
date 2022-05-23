@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+int saydigit(string arr[],int n)
+{   
+    if(n == 0){
+        return 0;
+    }
+    else{
+        int temp = n % 10;
+        saydigit(arr,n / 10);
+        cout<<arr[temp]<<" ";
+    }
+}
+int main()
+{
+    int n;
+    cin>>n;
+    string arr[10]={"zero","one","two","three","four","Five","six","seven","eight","nine"};
+    saydigit(arr,n);
+    return 0;
+}
