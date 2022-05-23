@@ -1,0 +1,19 @@
+#include<bits/stdc++.h>
+using namespace std;
+int fact(int n)
+{
+    if(n == 0){
+        return 1;
+    }
+    else{
+        int chottiproblem = fact(n-1);
+        int baddiproblem = n * chottiproblem;
+        return baddiproblem;
+    }
+}
+int main()
+{
+    int n;
+    cin>>n;
+    cout<<fact(n);
+}
