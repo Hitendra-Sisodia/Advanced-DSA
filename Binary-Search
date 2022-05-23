@@ -1,15 +1,20 @@
 #include<bits/stdc++.h>
 using namespace std;
-void print(int s,int e,int mid)
+void print(int arr[],int s,int e,int mid)
 {
     cout<<"start is:"<<s<<"\n";
     cout<<"End is:"<<e<<"\n";
     cout<<"Mid is:"<<mid<<"\n";
+    cout<<"Array: ";
+    for(int i = s ; i <= e ; i++){
+        cout<<arr[i]<<" ";
+    }
+    cout<<endl;
 }
 bool binarysearch(int arr[],int s,int e,int key)
 {   
-    int mid =(s+e)/2;
-    print(s,e,mid);
+    int mid = s +(e-s)/2;
+    print(arr,s,e,mid);
     if(s>e){
         return false;
     }
@@ -30,8 +35,8 @@ bool binarysearch(int arr[],int s,int e,int key)
 int main()
 {   
     int s = 0;
-    int e = 5;
+    int e = 8;
     int key = 20;
-    int arr[e] = {4,5,6,7,20};
-    cout<<binarysearch(arr,s,e,key);
-}
+    int arr[e] = {4,5,20,25,40,50,60,70};
+    cout<<binarysearch(arr,s,e - 1,key);
+}                                                                   
