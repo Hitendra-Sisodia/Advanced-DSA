@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+int power(int X,int n)
+{
+    if(n == 0){
+        return 1;
+    }
+    if(n == 1){
+        return X;
+    }
+    else{
+        int partialans = power(X,n-1);
+        int fullans = X * partialans;
+        return fullans;
+    }
+}
+int main()
+{
+    int x = 2;
+    int n = 3;
+    cout<<power(x,n);
+}
+
+# Approach -2(Best Time Complexity)
+#include<bits/stdc++.h>
+using namespace std;
+int power(int X,int n)
+{
+    if(n == 0){
+        return 1;
+    }
+    if(n == 1){
+        return X;
+    }
+    int partialans = power(X,n/2);
+    if(n % 2 == 0){
+        return (partialans * partialans);
+    }
+    else{
+        return X * (partialans * partialans);
+    }
+}
+int main()
+{
+    int x = 2;
+    int n = 3;
+    cout<<power(x,n);
+}
