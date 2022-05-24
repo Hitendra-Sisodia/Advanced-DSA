@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+void reverse(string &name,int s,int e)
+{
+    if(s>e){
+        return ;
+    }
+    else{
+        char temp = name[s];
+        name[s] = name[e];
+        name[e] = temp;
+        reverse(name,s+1,e-1);
+    }
+}
+int main()
+{   
+    int s = 0;
+    int e = 6;
+    string name = "babbar";
+    reverse(name,s,e-1);
+    cout<<name;
+}
