@@ -1,27 +1,28 @@
+// selection sort
 #include<bits/stdc++.h>
 using namespace std;
 int print(int array[])
 {
-    for(int i = 0 ; i < 5 ; i++){
+    for(int i=0 ; i<5 ; i++){
         cout<<array[i]<<" ";
     }
     cout<<endl;
 }
 void selectionSort(int array[],int i,int n)
-{
+{   
     print(array);
-    if(i == n -1){
+    if(i == n-1){
         return ;
     }
     else{
-        int min = i;
+        int min_index = i; // let 0th index be minimum
         for(int j = i+1 ; j < n ; j++){
-            if(array[j] < array[min]){
-                min = j;
+            if(array[j] < array[min_index]){
+                min_index = j;
             }
         }
-        int temp = array[min];
-        array[min] = array[i];
+        int temp = array[min_index];
+        array[min_index] = array[i];
         array[i] = temp;
     }
     selectionSort(array,i+1,n);
@@ -29,6 +30,6 @@ void selectionSort(int array[],int i,int n)
 int main()
 {
     int n = 5;
-    int array[n] = {578,40,340,343,456461};
-    selectionSort(array,0,5);
+    int arr[n] = {5,40,20,4,1};
+    selectionSort(arr,0,n);
 }
