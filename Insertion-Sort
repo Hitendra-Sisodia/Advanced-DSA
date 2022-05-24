@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+int print(int array[])
+{
+    for(int i = 0 ; i < 5 ; i++){
+        cout<<array[i]<<" ";
+    }
+    cout<<endl;
+}
+void insertionSort(int array[],int i,int n)
+{   
+    if(i == n){
+        return ;
+    }
+    int j = i-1;
+    int temp = array[i];
+    while(j >= 0 && array[j] > temp){
+        array[j+1] = array[j];
+        j--;
+    }
+    array[j+1] = temp;
+    print(array);
+    insertionSort(array,i+1,n);
+}
+int main()
+{
+    int n = 5;
+    int array[n] = {5,40,204,56,1};
+    insertionSort(array,1,n); // insertion sort rule an single element is always sorted.
+}
