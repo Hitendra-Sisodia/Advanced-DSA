@@ -6,6 +6,7 @@ void reverse(string &name,int s,int e)
         return ;
     }
     else{
+        cout<<"call recived for:"<<name<<endl;
         char temp = name[s];
         name[s] = name[e];
         name[e] = temp;
@@ -15,8 +16,8 @@ void reverse(string &name,int s,int e)
 int main()
 {   
     int s = 0;
-    int e = 6;
-    string name = "babbar";
+    int e = 5;
+    string name = "abcde";
     reverse(name,s,e-1);
     cout<<name;
 }
