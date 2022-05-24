@@ -21,3 +21,27 @@ int main()
     reverse(name,s,e-1);
     cout<<name;
 }
+
+// Approach -2 (Using Single Pointer)
+#include<bits/stdc++.h>
+using namespace std;
+void reverse(string &name,int s)
+{   
+    if(s > (name.length()/2)){
+        return ;
+    }
+    else{
+        cout<<"call for:"<<name<<"\n";
+        char temp = name[s];
+        name[s] = name[name.length() - s -1];
+        name[name.length() - s - 1] = temp;
+        reverse(name,s+1);
+    }
+}
+int main()
+{
+    int s = 0;
+    string name = "abcde";
+    reverse(name,s);
+    cout<<name;
+}
