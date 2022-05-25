@@ -1,16 +1,20 @@
 #include<bits/stdc++.h>
 using namespace std;
 void solve(string name,string output,int index,vector<string> &ans)
-{
+{   
+    // base case if index get equal to size of array then return from that position
     if(index >= name.length()){
-        if(output.length() > 0){
-            ans.push_back(output);
+        if(output.length() > 0){  // length of the optput array/vector should greater than zero.
+            ans.push_back(output); // the above condition exclude [] (empty array)as perquestion requirement.
         }
         return ;
     }
+    // exclude left part
     solve(name,output,index+1,ans);
-    output.push_back(name[index]);
-    solve(name,output,index+1,ans);
+    // including start from last index as left side is fully traversed first
+    // for example [1,2,3] then o/p -> [3]... 
+    output.push_back(name[index]);  //temporary pushing to output vector 
+    solve(name,output,index+1,ans);   // output get fully pushed in ans as we reach fully end of left part
 }
 vector<string> subSequence(string name)
 {
