@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+int partition(int *array,int s,int e)
+{
+    int pivot = array[s]; // pivot elment
+    int count = 0;
+    for(int i = s+1 ; i <= e ; i++){
+        if(array[i] <= pivot){
+            count++;
+        }
+    }
+    int pivotIndex = s + count; // give the perfect position for pivot element
+    swap(array[s],array[pivotIndex]); //pivotIndex = pivot element now is inserted to correct pos
+    // now left side should contain smaller elment then pivot element.
+    // and right side contain greater element
+    int i = s;
+    int j = e;
+    while(i < pivotIndex && j > pivotIndex){
+        while(array[i] < array[pivotIndex]){
+            i++;
+        }
+        while(array[j] > array[pivotIndex]){
+            j--;
+        }
+        if(i < pivotIndex && j > pivotIndex){
+            swap(array[i++],array[j++]);
+        }
+    }
+    return pivotIndex;
+}
+void quickSort(int *array,int s,int e)
+{
+    if(s >= e){
+        return ;
+    }
+    // create partition that return pivot index then rest all same work done by left and right sub array
+    int p = partition(array,s,e);
+    // sort left subarray
+    quickSort(array,s,p-1);
+    // sort right subarray
+    quickSort(array,p+1,e);
+}
+int main()
+{
+    int s = 0;
+    int n = 5;
+    int array[n] = {45,34,12,512,512};
+    quickSort(array,s,n-1);
+    for(int i = 0 ; i < n ; i++){
+        cout<<array[i]<<" ";
+    }
+}
