@@ -1,0 +1,33 @@
+// permutation of string
+#include<bits/stdc++.h>
+using namespace std;
+void solve(string input,int index,vector<string> &ans)
+{
+    if(index >= input.length()){
+        ans.push_back(input);
+        return ;
+    }
+    for(int i = index ; i < input.length() ; i++){
+        int temp = input[i];
+        input[i] = input[index];
+        input[index] = temp;
+        solve(input,index+1,ans);
+        // backtrack
+        swap(input[index],input[i]) //swapping is must required as we are making changes to orginal string.
+    }
+}
+vector<string> permu(string input)
+{
+    vector<string> ans;
+    int index = 0;
+    solve(input,index,ans);
+    return ans;
+}
+int main()
+{
+    string input = "abc";
+    vector<string> finalans = permu(input);
+    for(auto i: finalans){
+        cout<<"["<<i<<"]";
+    }
+}
