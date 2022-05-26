@@ -1,0 +1,80 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool issafe(vector<vector<int> > input,int x,int y,vector<vector<int> > visited,int n)
+{
+    if((x >= 0 && x < n) && (y >= 0 && y < n) && input[x][y] == 1 && visited[x][y] == 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+void solve(vector<vector<int> > &input,string path,int x,int y,vector<string> &ans,vector<vector<int> > visited,int n)
+{
+    //base case
+    if(x == n-1 && y == n-1){
+        ans.push_back(path);
+        return ;
+    }
+    visited[x][y] = 1;
+    //down
+    int newx = x + 1;
+    int newy = y;
+    if(issafe(input,newx,newy,visited,n)){
+        path.push_back('D');
+        solve(input,path,newx,newy,ans,visited,n);
+        path.pop_back();
+    }
+    //right
+    newx = x;
+    newy = y + 1;
+    if(issafe(input,newx,newy,visited,n)){
+        path.push_back('R');
+        solve(input,path,newx,newy,ans,visited,n);
+        path.pop_back();
+    }
+    //left
+    newx = x;
+    newy = y - 1;
+    if(issafe(input,newx,newy,visited,n)){
+        path.push_back('L');
+        solve(input,path,newx,newy,ans,visited,n);
+        path.pop_back();
+    }
+    //up
+    newx = x - 1;
+    newy = y;
+    if(issafe(input,newx,newy,visited,n)){
+        path.push_back('U');
+        solve(input,path,newx,newy,ans,visited,n);
+        path.pop_back();
+    }
+    visited[x][y] = 0;
+}
+vector<string> mazeProblem(vector<vector<int> > &input,int n)
+{
+    vector<string> ans;   // final o/p vector
+    if(input[0][0] == 0){
+        return ans;
+    }
+    vector<vector<int> > visited = input;   // empty visited vector
+    for(int i = 0 ; i < n ; i++){
+        for(int j = 0 ; j < n ; j++){
+            visited[i][j] = 0;
+        }
+    }
+    string path = "";
+    int srcx = 0;
+    int srcy = 0;
+    solve(input,path,srcx,srcy,ans,visited,n);
+    sort(ans.begin(),ans.end());
+    return ans;
+}
+int main()
+{
+    vector<vector<int> > input = {{1,0,0,0},{1,1,0,1},{1,1,0,0},{0,1,1,1}};
+    vector<string> finalans = mazeProblem(input,4);
+    for(auto i:finalans){
+        cout<<i<<"\n";
+    }
+}
