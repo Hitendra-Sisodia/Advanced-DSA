@@ -12,7 +12,7 @@ void solve(string digit,string output,int index,vector<string> &ans,string mappi
     for(int i = 0 ; i < map.length() ; i++){
         output.push_back(map[i]);   // pushing single character one by one.
         solve(digit,output,index+1,ans,mapping);
-        output.pop_back();
+        output.pop_back();      // jo bhi chij push hui pop hona juriri h
     }
 }
 vector<string> letter(string digit)
