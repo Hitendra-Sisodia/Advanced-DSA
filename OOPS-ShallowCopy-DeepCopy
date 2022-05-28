@@ -1,0 +1,46 @@
+// deep and shallow constructor
+#include<bits/stdc++.h>
+using namespace std;
+class Parent
+{   
+    public:
+    int health;
+    int age;
+    string name;
+    //defualt constructor
+    Parent(){
+        cout<<"Defualt Constructor Invoked"<<endl;
+    }
+    //Utility functions
+    void setHealth(int health){
+        this -> health = health;
+    }
+    void setAge(int age){
+        this -> age = age;
+    }
+    void setName(string name){
+        this -> name = name;
+    }
+    void print(){
+        cout<<"[ ";
+        cout<<"Health:"<<this -> health<<", ";
+        cout<<"Age:"<<this -> age<<", ";
+        cout<<"Name:"<<this -> name;
+        cout<<" ]"<<endl;
+    }
+};
+int main()
+{
+    Parent p;
+    p.setHealth(100);
+    p.setAge(21);
+    string name = "Hitendra";
+    p.setName(name);
+    p.print();
+    // default copy constructor
+    Parent q(p);
+    q.print();
+    q.name[0] = 'I';
+    q.print();
+    p.print();
+}
