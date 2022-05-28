@@ -1,0 +1,52 @@
+// Defualt copy constructor perfrom the shallow copy
+// i.e, When changes are made with the help of first object instance get reflected into second object instance.
+// for example if we change first char of name from B to G using first object i.e(p)
+// then changes made in first class instance get reflect back to second class instance 
+// name presnt in second class instace also became Gabbar. 
+#include<bits/stdc++.h>
+using namespace std;
+class Parent
+{   
+    public:
+    int health;
+    int age;
+    char *name;
+    // defualt constructor
+    Parent(){
+        cout<<"Defualt Constructor Invoked"<<endl;
+        name = new char[100];
+    }
+    // utility functions
+    void setHealth(int health){
+        this -> health = health;
+    }
+    void setAge(int age){
+        this -> age = age;
+    }
+    void setName(char name[]){
+        strcpy(this -> name,name);
+    }
+    void print(){
+        cout<<"[ ";
+        cout<<"Health:"<<this -> health<<", ";
+        cout<<"Age:"<<this -> age<<", ";
+        cout<<"Name:"<<this -> name;
+        cout<<" ]"<<endl;
+    }
+};
+int main()
+{
+    Parent p;
+    p.setHealth(100);
+    p.setAge(21);
+    char name[7] = "Babbar";
+    p.setName(name);
+    p.print();
+    // default copy constructor
+    Parent q(p);  // also termed as shallow copy
+    q.print();
+    // changing the name[0] char using  1st(p) object
+    p.name[0] = 'G';
+    q.print();
+    p.print();  // changes get reflect back to second object
+}
