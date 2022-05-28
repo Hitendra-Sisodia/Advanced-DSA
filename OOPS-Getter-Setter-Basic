@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+// Empty class take 1 byte of space
+class Hero
+{   
+    private:  // Private member is only accessible inside class
+    // private data can be changed using setter and getter
+    int health = 23;
+    public:    
+    char level = 'H';
+    
+    int getHealth(){
+        return health;
+    }
+    char getLevel(){
+        return level;
+    }
+    void setHealth(int h,char name){
+        if(name == 'h'){
+            health = h;
+        }
+    }
+    void setLevel(int ch){
+        level = ch;
+    }
+};
+int main()
+{
+    Hero hitendra; // creation of object
+    cout<<"Health is:"<<hitendra.getHealth()<<endl;
+    hitendra.setHealth(300,'h');
+    cout<<"Health is:"<<hitendra.getHealth()<<endl;
+    cout<<sizeof(hitendra)<<endl;   // size of the clas will be 8 as there is use of padding
+}
