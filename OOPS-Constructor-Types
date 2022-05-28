@@ -1,0 +1,100 @@
+// [Constructor] = constructor is inoved only at the creation of objects.
+// if no constructor is present than by defualt constructor is invoked.
+// defualt constructor name is : <object name>.<class name()> 
+// we also can explicity can create an constructor by using class name.
+// class name and constructor name should be same in c++.
+// for example if we create two objects than constructor invoked two times.
+// constructor of three types
+// ===> 1) Default constructor
+// ===> 2) Paramerterized constructor
+// ===> 3) Copy constructor
+// current object address is stored in this keyword
+// this keyword is use make difference beteween class method and and argument passed variable.
+// address of this keyword and object is same.
+// default copy constructor get vanished on creation of manual copy constructor done below.
+// default copy constructor perfom shallow copy.
+#include<bits/stdc++.h>
+using namespace std;
+class Parent
+{   
+    public:
+    int health = 100;
+    int age = 18;
+    int var = 10;
+    string name;
+    
+    // Default Constructor
+    Parent(){                           
+        cout<<"Default Constructor Invoked"<<endl;
+    }
+    
+    // Paramerterized constructor
+    Parent(int health,int age){
+        cout<<"This address is:"<<this<<endl;
+        cout<<"Paramerterised Constructor Invoked"<<endl;
+        this -> health = health;
+        this -> age = age;
+    }
+    
+    
+    // Copy constructor
+    Parent(Parent &obb){  // For creating copy constructor we have to pass the copy class name  
+        cout<<"Copy Constructor Invoked"<<endl; // if we use pass by value than it stuck in infinite loop.
+        this -> health = obb.health;  // so avoiding it we want to use pass by reference.
+        this  -> age = obb.age;
+    }
+    
+    //Ulitility Functions
+    void setHealth(int health){
+        this -> health = health;
+    }
+    void setAge(int age){
+        this -> age = age;
+    }
+    void setName(string name){
+        this -> name = name;
+    }
+    int getHealth(){
+        return health;
+    }
+    int getAge(){
+        return age;
+    }
+    void print(){
+        cout<<"[ ";
+        cout<<"Health:"<<this -> health<<" ,";
+        cout<<"Age:"<<this -> age<<" ,";
+        cout<<"Name:"<<this -> name;
+        cout<<" ]"<<endl;
+    }
+};
+int main()
+{   
+    // Lines
+    cout<<"Constructor Not called"<<endl;
+    
+    // static allocation
+    Parent ob;
+    cout<<ob.var<<endl;
+    
+    // dynamic allocation
+    Parent *obj = new Parent;
+    cout<< (*obj).var<<endl;   //both ways are correct
+    cout<<obj -> var<<endl;
+    
+    // calling of paramerterised constructor
+    Parent object(100,18);
+    cout<<"Object address is: "<< &object <<endl;
+    
+    //calling of getheath and getage
+    cout<<"Health is:"<<obj->getHealth()<<endl;
+    cout<<"Age is:"<<obj->getAge()<<endl; 
+    
+    // calling og copy constructor
+    Parent obb(100,18);
+    Parent c(obb);           // copy constructor doing same work as
+    //                       c.health = obb.health;
+    //                       c.level = obb.level;
+    obb.print();
+    c.print();  //another constructor with the same variable.
+}
