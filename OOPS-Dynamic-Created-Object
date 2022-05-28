@@ -1,0 +1,18 @@
+// Dynamic created varibale
+#include<bits/stdc++.h>
+using namespace std;
+class Parent
+{   
+    public:
+    int var = 100;
+};
+int main()
+{   
+    // static allocation
+    Parent ob;
+    cout<<ob.var<<endl;
+    // dynamic allocation
+    Parent *obj = new Parent;
+    cout<< (*obj).var<<endl;   //both ways are correct
+    cout<<obj -> var;
+}
