@@ -1,0 +1,30 @@
+// static keyword
+// static functions 
+// 1) doesn't contain this keyword.
+// 2) static function is uded to access static member only.
+// 3) from static function we can't access static members.
+#include<bits/stdc++.h>
+using namespace std;
+class Parent
+{   
+    public:
+    int name;
+    static int age;
+    static int random(){
+        return age;
+    }
+};
+int Parent::age = 5;   
+int main()
+{   
+    // static keyword
+    cout<<"OP way:"<<Parent::age<<endl;
+    Parent b;
+    b.age = 24;
+    cout<<"OP way:"<<Parent::age<<endl;
+    Parent q;
+    cout<<"q Object:"<<q.age<<endl;
+    cout<<"b object:"<<b.age<<endl; // b and q both give same answer
+    // static function
+    cout<<"Static Funciton:"<<Parent::random();
+}
