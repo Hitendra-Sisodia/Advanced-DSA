@@ -1,0 +1,36 @@
+// Destructor
+// 1) Used to deallocate memory required by the class instance(i.e to destroy the object).
+// 2) Name same as class name with tiddle symbol(~)
+// 3) No return type
+// 4) doesn't accept any arguments/input parameters
+// 5) Destructor automatically created on class creation
+//   ==> Static: for static allocation destructor called automatically
+//   ==> Dynamic: but for dynamic allocation destructor doesn't called automatically
+#include<bits/stdc++.h>
+using namespace std;
+class Parent
+{
+    public:
+    int age;
+    int rollno;
+    // default constructor
+    Parent(){
+        cout<<"this is default constructor"<<endl;
+    }
+    ~Parent(){
+        cout<<"this is destructor"<<endl;
+    }
+};
+int main()
+{   
+    // static created object
+    Parent obj;
+    obj.age = 18;
+    obj.rollno = 21;
+    // Dynamic created object
+    Parent *q = new Parent;
+    // manually destructor called for dynamic created object.
+    delete q;
+    // destructor are called only on static created object's
+    // for calling dynamic created object we use delete <objectname>;
+}
