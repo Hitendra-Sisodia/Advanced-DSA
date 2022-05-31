@@ -1,0 +1,54 @@
+// [Deep copy]: changes made to orginal object instance doesn't reflect back to copyed object.
+#include<bits/stdc++.h>
+using namespace std;
+class Parent
+{   
+    public:
+    int health;
+    int age;
+    char *name;
+    // default constructor
+    Parent(){
+        cout<<"This is defualt constructor"<<endl;
+        name = new char[7];
+    }
+    // copy constructor
+    Parent(Parent &obj){
+        cout<<"This is copy constructor"<<endl;
+        char *ch = new char[strlen(obj.name) + 1];
+        strcpy(ch,obj.name);   // obj.name copy already formed in ch so changes made in
+        this -> name = ch;     // obj.name doesn't reflect back to ch.
+        this -> health = obj.health;
+        this -> age = obj.age;
+    }
+    // Utility functions
+    void setHealth(int h){
+        this -> health = h;
+    }
+    void setAge(int a){
+        this -> age = a;
+    }
+    void setName(char name[]){
+        strcpy(this -> name,name);
+    }
+    void print(){
+        cout<<"[ ";
+        cout<<this -> health<<", ";
+        cout<<this -> age<<", ";
+        cout<<this -> name;
+        cout<<" ]"<<endl;
+    }
+};
+int main()
+{
+    Parent obj;
+    obj.setHealth(100);
+    obj.setAge(21);
+    char name[7] = "Babbar";
+    obj.setName(name);
+    obj.print();
+    Parent q(obj); 
+    obj.name[0] = 'G';
+    obj.print();  
+    q.print();        // deep copy changes doesn't reflect back to q.
+}
