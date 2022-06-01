@@ -1,0 +1,110 @@
+// 1. [Inheritance] ==> When one class inherite the property of another class is known as inheritance.
+// An protected inheritied class can't be access from main function but can be accessible from inherit class.
+// An private inheritied class can't be access from main function also, not acessible from inherit class.
+// Advantages:
+// ==> 1. Code Reuseability
+// Super class           child class           output
+// 1.public                public               public
+// 2.public                private              private
+// 3.public                protected            protected
+// 4.protected             public               protected 
+// 5.protected             protected            protected 
+// 6.protected             private              private
+// 7.private               public               Not accessible
+// 8.private               protected            Not accessible
+// 9.private               private              Not accessible
+#include<bits/stdc++.h>
+using namespace std;
+class Human
+{
+    private:
+    int height = 24;
+    public:
+    int weight;
+    int age = 54;
+    private:
+    int get;
+    public:
+    int getAge(){
+        return this -> age;
+    }
+    int setWeight(int weight){
+        this -> weight = weight;
+    }
+};
+class Male: public Human
+{
+    public:
+    string colour = "Green";
+    void sleep(){
+        cout<<"Male sleeping";
+    }
+    int getAge1(){
+        return this -> age;
+    }
+    int getheight1(){
+        return this -> height;
+    }
+};
+int main()
+{   
+    /*
+    // 1.public => public => public
+    Male t;
+    cout<<t.colour;
+    */
+
+
+    /*
+    // 2.public => private => private
+    Male e;
+    //e.colour();   // output instance of sub class can't be access from outside of class.
+    //e.height;
+    // but we can use getter and setter to make changes inside class.
+    cout<<e.getAge1();       // use of getter and setter in derived class.
+    */
+
+
+    /*
+    // 3.public => protected => protected
+    Male u;
+    // u.age();
+    cout<<u.getAge1();  // same getter and setter can be used to access age from class
+    */
+
+
+    /*
+    // 4.proceted => public => protected
+    Male c;
+    // c.height;
+    cout<<c.getheight1()<<endl;
+    cout<<c.age;
+    */
+
+
+    /*
+    // 5.protected => protected => protected
+    Male u;
+    // u.height;
+    cout<<u.getheight1();
+    */
+
+
+    /*
+    // 6.protected => private => private
+    Male k;
+    //k.height;   
+    cout<<k.colour<<endl;   // at present member of the sub class can be accessible
+    cout<<k.getheight1();
+    */
+
+
+    /*
+    // 7.private => public => Not accessible
+    Male z;
+    //z.height;
+    //cout<<z.getheight1();              
+    // this time getter and setter cannot work as private member can't be used in subclass.
+    // private data member of any super class cannot be inheritiate.
+    */
+}
