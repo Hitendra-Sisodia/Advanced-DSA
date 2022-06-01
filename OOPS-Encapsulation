@@ -1,0 +1,31 @@
+// 1. [Encapsulation] ==> Binding of data into single entity.
+// fully encapsulated class ==> when all instance of class are binded into single entity.
+// Advantages:
+// ==> 1. Data Hiding
+// ==> 2. Read only class mode
+// ==> 3. Code Reuseability
+// Class instance in private mode is called as encapsulation.
+#include<bits/stdc++.h>
+using namespace std;
+class Parent
+{   
+
+    private:
+    int rollno;
+    int age;
+    int clas;
+    char sec;
+    public:
+    void setter(int rollno){
+        this -> rollno = rollno;
+    }
+    void print(){
+        cout<<this -> rollno<<endl;
+    }
+};
+int main()
+{
+    Parent q;
+    q.setter(24);
+    q.print();
+}
