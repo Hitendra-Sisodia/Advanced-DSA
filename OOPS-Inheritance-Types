@@ -1,0 +1,141 @@
+// Types of inheritance
+#include<bits/stdc++.h>
+using namespace std;
+
+
+// 1. Simple Inheritance
+class A
+{
+    public:
+    int age;
+    int marks;
+};
+class B: public A
+{   
+    public:
+    int ok;
+};
+int main()
+{
+    B obj;
+    obj.age;
+}
+
+
+
+// 2. Mutlilevel Inheritnace
+// class A
+// {
+//     public:
+//     int age;
+// };
+// class B: public A
+// {
+//     public:
+//     int marks;
+// };
+// class C: public B
+// {
+//     public:
+//     int ok;
+// };
+// int main()
+// {
+//     A object1;
+//     cout<<object1.age<<endl;
+//     B object2;
+//     cout<<object2.age<<endl;
+//     cout<<object2.marks<<endl;
+//     C object3;
+//     cout<<object3.age<<endl;
+//     cout<<object3.marks<<endl;
+//     cout<<object3.ok<<endl;
+// }
+
+
+
+// 3. Multiple inheritnace
+// class A
+// {
+//     public:
+//     int age;
+// };
+// class B
+// {
+//     public:
+//     int marks;
+// };
+// class C: public A, public B
+// {
+//     int ok;
+// };
+// int main()
+// {
+//     C object3;
+//     cout<<object3.age<<endl;
+//     cout<<object3.marks<<endl;
+// }
+
+
+
+// // 4. Hierarchical Inheritance
+// class A
+// {
+//     public:
+//     int age;
+// };
+// class B: public A
+// {
+//     public:
+//     int marks;
+// };
+// class C:public A
+// {
+//     public:
+//     int ok;
+// };
+// int main()
+// {
+//     A object1;
+//     cout<<object1.age<<endl;
+//     B object2;
+//     cout<<object2.age<<endl;
+//     cout<<object2.marks<<endl;
+//     C object3;
+//     cout<<object3.age<<endl;
+//     cout<<object3.ok<<endl;
+// }
+
+
+
+// 5. Hybrid Inheritance
+// class A
+// {
+//     public:
+//     int age;
+// };
+// class B
+// {
+//     public:
+//     int marks;
+// };
+// class C
+// {
+//     public:
+//     int ok;
+// };
+// class D:public A,public B   // Hierarchical inheritance
+// {
+//     public:
+//     int op;
+// };
+// class E:public B            // simple inheritance
+// {
+//     public:
+//     int opp;
+// };
+// int main()
+// {
+//     D object;
+//     cout<<object.op;
+// }
