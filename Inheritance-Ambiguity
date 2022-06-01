@@ -1,0 +1,31 @@
+// Inheritance Ambiguity: Is the condition when both two or more parent class have same fucntion.
+// i.e. on the creation of child class object gets difficult to select  which parent class function will
+// be executed.
+#include<bits/stdc++.h>
+using namespace std;
+class A
+{
+    public:
+    void fun(){
+        cout<<"This is class B"<<endl;
+    }
+};
+class B
+{
+    public:
+    void fun(){
+        cout<<"This is class B"<<endl;
+    }
+};
+class C: public A,public B
+{   
+    public:
+    int ok;
+};
+int main()
+{
+    C object;
+    // object.fun();
+    object.A::fun();    // solution of inheritance ambiguity
+    object.B::fun();
+}
