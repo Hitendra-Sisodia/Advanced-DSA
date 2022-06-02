@@ -1,0 +1,86 @@
+// [Polymorphsim]
+// ==> 1) Compile time polymorphism: also known as static polymorphsim
+// =========>a) function overloading: when an class consist of multiple function with the same name but with different parameters.It doesn't depend on the return type of the function.
+//              i.e, function overloading can't be achieved by changing the return type of function it only depend on the arguemnts.
+// =========>b) operator overloading: C++ also provide an way from which we can change the function/behaviour of an operator.
+// ==> 2) Run time polymorphism: also known as static polymorphsim
+// =========>a) function overriding: when parent class and child class have same name function. Then, fucntion defined in parent class will be overwritten by function present in child calss.
+//              both can contain same number of arguemnts. only achieved through inheritance.
+#include<bits/stdc++.h>
+using namespace std;
+
+// 1. Compile Time polymorphism
+// a) function overloading
+class A
+{
+    public:
+    void function(){
+        cout<<"this is function 1"<<endl;
+    }
+    void function(int n){
+        cout<<"this is function"<<n<<endl;
+    }
+};
+int main()
+{
+    A object;
+    object.function();
+    bject.function(3);  // This will call function with n argument.
+}
+
+
+
+// b) function overriding
+// class A
+// {   
+//     public:
+//     int a; // 4(obj1)  # 7(obj2)
+//     int b;
+//     public:
+//     void operator+(A &obj){
+//         int value1 = this -> a;
+//         int value2 = obj.a;
+//         cout<< value2 - value1;
+//     }
+// };
+// int main()
+// {
+//     A obj1, obj2;
+//     obj1.a = 4;
+//     obj2.a = 7;
+//     obj1 + obj2;         // second value is passed in operator function
+// }
+// class A
+// {   
+//     public:
+//     int a = 10;
+//     void operator()(){
+//         cout<<"Me bracket hu";
+//     }
+// };
+// int main()
+// {
+//     A obj;
+//     obj();
+// }
+
+// // 1. Run Time polymorphism
+// class A
+// {
+//     public:
+//     void speak(){
+//         cout<<"speaking....";
+//     }
+// };
+// class B:public A
+// {
+//     public:
+//     void speak(){
+//         cout<<"Barking.....";
+//     }
+// };
+// int main()
+// {
+//     B obj1;
+//     obj1.speak();
+// }
