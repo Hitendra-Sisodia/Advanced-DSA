@@ -1,0 +1,47 @@
+// [map]: map are the datastructure which stores the data in {key,values} mapping in sorted order of there unique keys.
+// map implemented using Red Black Trees
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    map<int,string> m;
+    m[0];   // declaration of key without pair also uses O(logn) TC
+    m[3] = "aniket";       
+    m[1] = "Hitendra";   // O(logn)
+    m[2] = "Ujesh";
+    m.insert(make_pair(4,"rakesh"));
+    map<int,string>::iterator it;
+    for(it = m.begin() ; it != m.end() ; it++){
+        cout<<it -> first <<" "<< it -> second<<endl;       // o/p in sorted order by default.
+    }
+    // m.find(): return iterator to the passed arguemnt
+    auto i = m.find(1);        
+    cout<<"find value is:"<<(*i).second<<endl;
+    // m.count(): Used to check passed argument present in map or not, return type is boolean.
+    cout<<"2 key is present or not: "<<m.count(2)<<endl; 
+    // m.erase(): works with element ass well as iterator.
+    m.erase(m.begin());
+    // if arguemnt x passed in erase function is not present in map then it will give segementation fault, to avoid this we use safety checks.
+    auto ip = m.find(0);
+    if(ip == m.end()){
+        cout<<"No vale found";
+    }
+    else{
+        m.erase(ip);
+    }
+    // input of maps.
+    map<string,int> m1;
+    int n;
+    cin>>n;
+    for(int i = 0 ; i < n ; i++){
+        string str;
+        cin>>str;
+        m1[str]++;
+    }
+    for(auto i:m1){
+        cout<<i.first<<" "<<i.second<<endl;
+    }
+    // if we define map<int,int> mp and perform insert operation i.e,
+    //mp[6];    //by defualt values get filled by 0 in O(logn) TC.
+    m.clear();
+}
