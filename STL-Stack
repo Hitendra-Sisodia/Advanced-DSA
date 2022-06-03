@@ -1,0 +1,14 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    stack<string> s;
+    s.push("Hitendra");
+    s.push("Ujesh");
+    s.push("Babbar");
+    cout<<"top element:"<<s.top()<<endl;
+    cout<<"size before pop:"<<s.size()<<endl;
+    s.pop();
+    cout<<"size after pop:"<<s.size()<<endl;
+    cout<<"Empty or not:"<<s.empty()<<endl;     // always return answer in boolean
+}
