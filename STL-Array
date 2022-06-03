@@ -1,0 +1,11 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    array<int,4> a = {1,2,3,4};
+    cout<<"Size:"<<a.size()<<endl;
+    cout<<"Element at:"<<a.at(2)<<endl;
+    cout<<"Empty or not:"<<a.empty()<<endl;  // return answers in boolean
+    cout<<"Front element:"<<a.front()<<endl;
+    cout<<"last element:"<<a.back()<<endl;
+}
