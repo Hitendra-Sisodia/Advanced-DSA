@@ -1,0 +1,39 @@
+// [set]: set are the containers which stores the data in sorted order of there unique key only.
+// set implemented using red-Black trees
+// set iterator offer less features then vector iterator. it + 5 are invalid operation.
+// s.insert(),s.find(),s.erase(),s.count() ==> o(n) Time complexity
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    set<int> s;
+    s.insert(1);
+    s.insert(2);
+    s.insert(3);
+    s.insert(1);
+    s.insert(9);
+    cout<<"size:"<<s.size()<<endl;
+    cout<<"Empty or not:"<<s.empty()<<endl;
+    // s.erase() and s.find() function work on iterator
+    // s.find(x): return the iterator to element x if element x not found in s then it will return s.end().
+    auto it = s.find(1);
+    cout<<"s.find() value is:"<<(*it)<<endl;
+    // s.erase(): works with index, as well as iterators
+    // i.e, s.front(),s.end() also can be used in erase function
+    for(auto i:s){
+        cout<<i<<" ";
+    }
+    cout<<endl;
+    s.erase(2 /*index */);
+    for(auto i:s){
+        cout<<i<<" ";
+    }
+    cout<<endl;
+    s.erase(s.begin() /*iterator pointing to 1st element*/);
+    for(auto i:s){
+        cout<<i<<" ";
+    }
+    cout<<endl;
+    cout<<"Number 9 present or not:"<<s.count(9); // return type is boolean
+    s.clear(); //erase all elements
+}
