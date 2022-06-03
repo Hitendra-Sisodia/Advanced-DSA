@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{   
+    // max heap 
+    priority_queue<int> p_q;  // higher value gets higher priority
+    // all elements are pushed in priority queue arranged dynamically
+    // min heap
+    priority_queue<int,vector<int> , greater<int> > mini; // same function as priority queues
+    p_q.push(10);
+    p_q.push(20);
+    p_q.push(30);
+    cout<<"size:"<<p_q.size()<<endl;
+    cout<<"is empty or not"<<p_q.empty()<<endl;
+    cout<<"Top element is:"<<p_q.top()<<endl;
+    int n = p_q.size();
+    for(int i = 0 ; i < n ; i++){
+        cout<<p_q.top()<<" ";
+        p_q.pop();
+    }
+    cout<<endl;
+}
