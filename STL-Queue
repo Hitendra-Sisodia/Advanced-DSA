@@ -1,0 +1,14 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    queue<string> q;
+    q.push("love");
+    q.push("Babbar");
+    q.push("Hitendra");
+    cout<<"size:"<<q.size()<<endl;
+    cout<<"Is empty or not:"<<q.empty()<<endl;
+    cout<<"top element:"<<q.front()<<endl;
+    q.pop();
+    cout<<"top element:"<<q.front()<<endl;
+}
