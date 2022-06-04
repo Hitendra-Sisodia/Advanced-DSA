@@ -1,5 +1,5 @@
 // STL list implemention is done using doubly linked list
-// all inbuilt function used O(n) teim complexity
+// all inbuilt function used O(n) time complexity
 #include<bits/stdc++.h>
 using namespace std;
 int main()
