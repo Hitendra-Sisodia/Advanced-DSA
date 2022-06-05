@@ -1,0 +1,98 @@
+// Singly Linked List insertion
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+node *createNode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> data = X;
+    return newnode;
+}
+void insertionAtTail(node **head,int X)
+{
+    node *temp = *head;
+    node *newnode = createNode(X);
+    if(*head == NULL){
+        *head = newnode;
+    }
+    else{
+        while(temp -> link != NULL){
+            temp = temp -> link;
+        }
+        temp -> link = newnode;
+    }
+}
+void deletionAtHead(node **head)
+{
+    if(*head == NULL){
+        cout<<"Empty Linked List";
+    }
+    else{
+        node* temp = *head;
+        *head = temp -> link;
+        free(temp);
+    }
+}
+void deletionAtTail(node **head)
+{
+    if(*head == NULL){
+        cout<<"Empty Linked list";
+    }
+    else{
+        node *prv = NULL;
+        node *temp = *head;
+        while(temp -> link != NULL){
+            prv = temp;
+            temp = temp -> link;
+        }
+        prv -> link = NULL;
+        free(temp);
+    }
+}
+void deletionAtPos(node **head,int pos)
+{   
+    // deletion from start
+    if(*head == NULL){
+        deletionAtHead(&*head);
+        return ;
+    }
+    node *prv = NULL;
+    node *temp = *head;
+    for(int i = 2 ; i <= pos ; i++){   // if we use prv pointer then <=
+        prv = temp;
+        temp = temp -> link;
+    }
+    prv -> link = temp -> link;
+    free(temp);
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+int main()
+{
+    node *head = NULL;
+    insertionAtTail(&head,10);
+    insertionAtTail(&head,20);
+    insertionAtTail(&head,30);
+    insertionAtTail(&head,40);
+    insertionAtTail(&head,60);
+    insertionAtTail(&head,90);
+    display(head);
+    deletionAtHead(&head);
+    display(head);
+    deletionAtTail(&head);
+    display(head);
+    deletionAtPos(&head,3);   // deletion at 3rd position stating from 1 count
+    display(head);
+}
