@@ -1,0 +1,91 @@
+// Singly Linked List insertion
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+node *createNode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> data = X;
+    return newnode;
+}
+void insertionAtTail(node **head,int X)
+{
+    node *temp = *head;
+    node *newnode = createNode(X);
+    if(*head == NULL){
+        *head = newnode;
+    }
+    else{
+        while(temp -> link != NULL){
+            temp = temp -> link;
+        }
+        temp -> link = newnode;
+    }
+}
+void insertionAtHead(node **head,int X)
+{   
+    node *temp = *head;
+    node *newnode = createNode(X);
+    if(*head == NULL){
+        *head = newnode;
+    }
+    else{
+        newnode -> link = temp;
+        *head = newnode;
+    }
+}
+void insertionAtPos(node **head,int X,int pos)
+{   
+    // insert at 1st pos
+    if(pos == 1){
+        insertionAtHead(&*head,X);
+        return ;
+    }
+    node *temp = *head;
+    node *newnode = createNode(X);
+    for(int i = 2 ; i < pos ; i++){
+        temp = temp -> link;
+    }
+    if(temp -> link == NULL){
+        insertionAtTail(&*head,X);
+        return ;
+    }
+    newnode -> link = temp -> link;
+    temp -> link = newnode;
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+int main()
+{
+    node *head = NULL;
+    insertionAtTail(&head,10);
+    display(head);
+    insertionAtTail(&head,20);
+    display(head);
+    insertionAtTail(&head,30);
+    display(head);
+    insertionAtTail(&head,40);
+    display(head);
+    insertionAtHead(&head,4);
+    display(head);
+    insertionAtHead(&head,3);
+    display(head);
+    insertionAtHead(&head,1);
+    display(head);
+    insertionAtPos(&head,5,8);
+    display(head);
+    insertionAtPos(&head,50,1);
+    display(head);
+}
