@@ -1,0 +1,107 @@
+// Doubly linked list Deletion
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *prv;
+    node *link;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> data = X;
+    newnode -> prv = NULL;
+    newnode -> link = NULL;
+    return newnode;
+}
+insertionAtTail(node **head,node **tail,int X)
+{   
+    node *temp = *tail;
+    node *newnode = createnode(X);
+    if(*tail == NULL){
+        *head = newnode;
+        *tail = newnode;
+    }
+    else{
+        newnode -> prv = *tail;
+        temp -> link = newnode;
+        *tail = newnode;
+    }
+}
+deletionAtHead(node **head)
+{   
+    node *temp = *head;
+    if(*head == NULL){
+        cout<<"Empty Linked list";
+    }
+    else{
+        temp -> link -> prv = NULL;
+        *head = temp -> link;
+        free(temp);
+    }
+}
+deletionAtTail(node **tail)
+{
+    node *temp = *tail;
+    if(*tail == NULL){
+        cout<<"Empty Linked List";
+    }
+    else{
+        temp -> prv -> link = NULL;
+        *tail = temp -> prv;
+        free(temp);
+    }
+}
+deletionAtPos(node **head,int pos)
+{   
+    node *prve = NULL;
+    node *temp = *head;
+    if(*head == NULL){
+        cout<<"Empty Linked List";
+    }
+    else{
+        for(int i = 2 ; i <= pos ; i++){
+            prve = temp;
+            temp = temp -> link;   // current deletion postion i.e, pos
+        }
+        temp -> link -> prv = prve;
+        prve -> link = temp -> link;
+        free(temp);
+    }
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+void displayReverse(node *tail)    // reverse traversing in doubly linked list
+{
+    node *temp = tail;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> prv;
+    }
+}
+int main()
+{
+    node *head = NULL;
+    node *tail = NULL;
+    insertionAtTail(&head,&tail,10);
+    insertionAtTail(&head,&tail,20);
+    insertionAtTail(&head,&tail,30);
+    insertionAtTail(&head,&tail,40);
+    insertionAtTail(&head,&tail,50);
+    display(head);
+    deletionAtHead(&head);
+    display(head);
+    deletionAtTail(&tail);
+    display(head);
+    deletionAtPos(&head,2);
+    display(head);
+    displayReverse(tail);
+}
