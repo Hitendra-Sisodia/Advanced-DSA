@@ -1,0 +1,94 @@
+// Singly circular linked list insertion
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> data = X;
+    return newnode;
+}
+void insertionAtHead(node **head,node **tail,int X)
+{
+    node *temp1 = *head;
+    node *temp2 = *tail;
+    node *newnode = createnode(X);
+    if(*head == NULL){
+        *head = newnode;
+        *tail = newnode;
+        newnode -> link = newnode;
+    }
+    else{
+        newnode -> link = temp1;
+        temp2 -> link = newnode;
+        *head = newnode;
+    }
+}
+void insertionAtTail(node **head,node **tail,int X)
+{
+    node *temp1 = *head;
+    node *temp2 = *tail;
+    node *newnode = createnode(X);
+    if(*head == NULL){
+        *head = newnode;
+        *tail = newnode;
+        newnode -> link = newnode; 
+    }
+    else{
+        newnode -> link = temp1;
+        temp2 -> link = newnode;
+        *tail = newnode;
+    }
+}
+void insertionAtPos(node **head,node **tail,int X,int pos)
+{   
+    node *prve = NULL;
+    node *temp = *head;
+    node *newnode = createnode(X);
+    if(pos == 1){               // condition for handling insertion at head
+        insertionAtHead(&*head,&*tail,X);
+        return ;
+    }
+    for(int i = 2 ; i <= pos ; i++){
+        prve = temp;
+        temp = temp -> link;
+    }
+    if(prve -> link == *head){   // condition for handling insertion at tail
+        insertionAtTail(&*head,&*tail,X);
+        return ;
+    }
+    newnode -> link = temp;
+    prve -> link = newnode;
+}
+void display(node *head)
+{
+    node *temp = head;
+    do{
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    while(temp != head);
+    cout<<endl;
+}
+int main()
+{
+    node *head = NULL;
+    node *tail = NULL;
+    insertionAtHead(&head,&tail,5);
+    display(head);
+    insertionAtHead(&head,&tail,4);
+    display(head);
+    insertionAtHead(&head,&tail,3);
+    display(head);
+    insertionAtTail(&head,&tail,10);
+    display(head);
+    insertionAtTail(&head,&tail,30);
+    display(head);
+    insertionAtPos(&head,&tail,11,6);
+    display(head);
+}
