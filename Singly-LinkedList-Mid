@@ -1,0 +1,71 @@
+// Mid of the singly linked list
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> data = X;
+    return newnode;
+}
+void insertionAtTail(node **head,int X)
+{
+    node *temp = *head;
+    node *newnode = createnode(X);
+    if(*head == NULL){
+        *head = newnode;
+    }
+    else{
+        while(temp -> link != NULL){
+            temp = temp -> link;
+        }
+        temp -> link = newnode;
+    }
+}
+void mid(node *head)
+{
+    node *temp = head;
+    int count = 0;
+    while(temp != NULL){
+        count++;
+        temp = temp -> link;
+    }
+    int mid = (count/2) + 1;
+    temp = head;
+    for(int i = 1 ; i < mid ; i++){
+        temp = temp -> link;
+    }
+    cout<<"count is:"<<count<<endl;
+    cout<<"Mid is:"<<temp-> data<<endl;
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+int main()
+{
+    node *head = NULL;
+    insertionAtTail(&head,21);
+    display(head);
+    insertionAtTail(&head,22);
+    display(head);
+    insertionAtTail(&head,23);
+    display(head);
+    insertionAtTail(&head,24);
+    display(head);
+    insertionAtTail(&head,25);
+    display(head);
+    insertionAtTail(&head,26);
+    display(head);
+    mid(head);
+}
