@@ -27,7 +27,7 @@ void insertionAtTail(node **head,int X)
         temp -> link = newnode;
     }
 }
-void mid(node *head)
+node *mid(node *head)
 {
     node *temp = head;
     int count = 0;
@@ -40,8 +40,7 @@ void mid(node *head)
     for(int i = 1 ; i < mid ; i++){
         temp = temp -> link;
     }
-    cout<<"count is:"<<count<<endl;
-    cout<<"Mid is:"<<temp-> data<<endl;
+    return temp;
 }
 void display(node *head)
 {
@@ -67,5 +66,6 @@ int main()
     display(head);
     insertionAtTail(&head,26);
     display(head);
-    mid(head);
+    node *finalans = mid(head);
+    cout<<"Mid is:"<<finalans -> data<<endl;
 }
