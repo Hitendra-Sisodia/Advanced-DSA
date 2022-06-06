@@ -1,0 +1,68 @@
+// reverse a linked list(Method - 1)
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> data = X;
+    return newnode;
+}
+void insertionAtTail(node **head,int X)
+{
+    node *temp = *head;
+    node *newnode = createnode(X);
+    if(*head == NULL){
+        *head = newnode;
+    }
+    else{
+        while(temp -> link != NULL){
+            temp = temp -> link;
+        }
+        temp -> link = newnode;
+    }
+}
+void reverse(node **head)
+{
+    node *prev = NULL;
+    node *current = *head;
+    while(current != NULL){
+        node *forward = current -> link;
+        current -> link = prev;
+        prev = current;
+        current = forward;
+    }
+    *head = prev;
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+int main()
+{
+    node *head = NULL;
+    insertionAtTail(&head,21);
+    display(head);
+    insertionAtTail(&head,22);
+    display(head);
+    insertionAtTail(&head,23);
+    display(head);
+    insertionAtTail(&head,24);
+    display(head);
+    insertionAtTail(&head,25);
+    display(head);
+    insertionAtTail(&head,26);
+    display(head);
+    reverse(&head);
+    display(head);
+}
