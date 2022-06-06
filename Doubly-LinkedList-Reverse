@@ -1,0 +1,65 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *prv;
+    node *link;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> prv = NULL;
+    newnode -> link = NULL;
+    newnode -> data = X;
+    return newnode;
+}
+void insertionAtTail(node **head,node **tail,int X)
+{
+    node *temp1 = *head;
+    node *temp2 = *tail;
+    node *newnode = createnode(X);
+    if(*head == NULL){
+        *head = newnode;
+        *tail = newnode;
+    }
+    else{
+        newnode -> prv = temp2;
+        temp2 -> link = newnode;
+        *tail = newnode;
+    }
+}
+void reverse(node **head,node **tail)
+{
+    node *current = *head;
+    while(current != NULL){
+        node *forward = current -> link;
+        if(forward != NULL){             // logic to remain at last node
+            *head = forward;             // both head and tail are pointing to lastnode of new linked list
+        }
+        current -> link = current -> prv;
+        current -> prv = forward;
+        current = forward;
+    }
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+int main()
+{
+    node *head = NULL;
+    node *tail = NULL;
+    insertionAtTail(&head,&tail,21);
+    insertionAtTail(&head,&tail,22);
+    insertionAtTail(&head,&tail,23);
+    insertionAtTail(&head,&tail,24);
+    display(head);
+    reverse(&head,&tail);
+    display(tail);
+}
