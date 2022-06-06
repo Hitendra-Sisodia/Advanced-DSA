@@ -1,0 +1,72 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> data = X;
+    return newnode;
+}
+void insertionAtTail(node **head,int X)
+{
+    node *temp = *head;
+    node *newnode = createnode(X);
+    if(*head == NULL){
+        *head = newnode;
+    }
+    else{
+        while(temp -> link != NULL){
+            temp = temp -> link;
+        }
+        temp -> link = newnode;
+    }
+}
+node *reverseAtK(node *head,int K)
+{
+    if(head == NULL){
+        return NULL;
+    }
+    node *prev= NULL;
+    node *current = head;
+    node *forward = NULL;
+    int count = 0;
+    while(current != NULL && count < K){
+        forward = current -> link;
+        current -> link = prev;
+        prev = current;
+        current = forward;
+        count++;
+    }
+    if(forward != NULL){
+        head -> link = reverseAtK(forward,K);
+    }
+    return prev;
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+int main()
+{
+    node *head = NULL;
+    insertionAtTail(&head,21);
+    insertionAtTail(&head,22);
+    insertionAtTail(&head,23);
+    insertionAtTail(&head,24);
+    insertionAtTail(&head,25);
+    insertionAtTail(&head,26);
+    insertionAtTail(&head,27);
+    display(head);
+    node *finalans = reverseAtK(head,2);
+    display(finalans);
+}
