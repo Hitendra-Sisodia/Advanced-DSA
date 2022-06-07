@@ -86,14 +86,21 @@ int main()
     insertionAtTail(&head,24);
     insertionAtTail(&head,25);
     insertionAtTail(&head,26);
+    cout<<"Linked List Before Removing Circular Loop:";
     display(head);
     // detection of loop
     node *intersection = circularOrNotFloyd(head);
-    cout<<intersection -> data<<endl;
+    if(intersection -> data){
+        cout<<"Circular Detected"<<endl;
+    }
+    else{
+        cout<<"Non Circular Detected"<<endl;
+    }
     // if detection: true, first element of the loop(head -> data)
     node *firstNodeAtIntersection = firstNodeOfCircularListFloyd(head);
-    cout<<firstNodeAtIntersection -> data<<endl;
-    // remove the detected loop
+    cout<<"First Node Of Circular Detection:"<<firstNodeAtIntersection -> data<<endl;
+    // remove detected loop
     removeDetectedLoopFloyd(&head);
+    cout<<"Linked List After Removing Circular Loop:";
     display(head);
 }
