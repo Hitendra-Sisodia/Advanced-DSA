@@ -1,0 +1,99 @@
+// detect an circular loop using floyd algorithum
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> data = X;
+    newnode -> link = NULL;
+    return newnode;
+}
+void insertionAtTail(node **head,int X)
+{
+    node *temp = *head;
+    node *newnode = createnode(X);
+    if(*head == NULL){
+        *head = newnode;
+        newnode -> link = newnode;
+    }
+    else{
+        while(temp -> link != *head){
+            temp = temp -> link;
+        }
+        temp -> link = newnode;
+        newnode -> link = *head;
+    }
+}
+node *circularOrNotFloyd(node *head)
+{
+    if(head == NULL){
+        return NULL;
+    }
+    node *slow = head;
+    node *fast = head;
+    while(slow != NULL && fast != NULL){
+        fast = fast -> link;
+        if(fast != NULL){
+            fast = fast -> link;
+        }
+        slow = slow -> link;
+        if(fast == slow){
+            return slow;
+        }
+    }
+    return NULL;
+}
+node *firstNodeOfCircularListFloyd(node *head)
+{
+    node *intersection = circularOrNotFloyd(head);
+    node *slow = head;
+    while(slow != intersection){
+        slow = slow -> link;
+        intersection = intersection -> link;
+    }
+    return slow;
+}
+void removeDetectedLoopFloyd(node **head)
+{
+    node *firstnode = firstNodeOfCircularListFloyd(*head);
+    node *slow = firstnode;
+    while(slow -> link != firstnode){
+        slow = slow -> link;
+    }
+    slow -> link = NULL;
+}
+void display(node *head)
+{
+    node *temp = head;
+    do{
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    while(temp != head);
+    cout<<endl;
+}
+int main()
+{
+    node *head = NULL;
+    insertionAtTail(&head,21);
+    insertionAtTail(&head,22);
+    insertionAtTail(&head,23);
+    insertionAtTail(&head,24);
+    insertionAtTail(&head,25);
+    insertionAtTail(&head,26);
+    display(head);
+    // detection of loop
+    node *intersection = circularOrNotFloyd(head);
+    cout<<intersection -> data<<endl;
+    // if detection: true, first element of the loop(head -> data)
+    node *firstNodeAtIntersection = firstNodeOfCircularListFloyd(head);
+    cout<<firstNodeAtIntersection -> data<<endl;
+    // remove the detected loop
+    removeDetectedLoopFloyd(&head);
+    display(head);
+}
