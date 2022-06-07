@@ -1,0 +1,67 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> data = X;
+    newnode -> link = NULL;
+    return newnode;
+}
+void insertionAtTail(node **head,int X)
+{
+    node *temp = *head;
+    node *newnode = createnode(X);
+    if(*head == NULL){
+        *head = newnode;
+    }
+    else{
+        while(temp -> link != NULL){
+            temp = temp -> link;
+        }
+        temp -> link = newnode;
+    }
+}
+void removeDuplicate(node **head)
+{   
+    if(*head == NULL){ 
+        return ;
+    }
+    node *current = *head;
+    while(current != NULL){
+        if(current -> link != NULL && current -> data == current -> link -> data){
+            node *next = current -> link -> link;
+            free(current -> link);
+            current -> link = next;
+        }
+        else{
+            current = current -> link;
+        }
+    }
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+int main()
+{
+    node *head = NULL;
+    insertionAtTail(&head,1);
+    insertionAtTail(&head,2);
+    insertionAtTail(&head,2);
+    insertionAtTail(&head,3);
+    insertionAtTail(&head,3);
+    insertionAtTail(&head,4);
+    display(head);
+    removeDuplicate(&head);
+    display(head);
+}
