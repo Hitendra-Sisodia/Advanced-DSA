@@ -1,0 +1,82 @@
+// floyd's cycle detection algo
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> data = X;
+    return newnode;
+}
+void insertAtTail(node **head,int X)
+{
+    node *temp = *head;
+    node *newnode = createnode(X);
+    if(*head == NULL){
+        *head = newnode;
+        newnode -> link = newnode;
+    }
+    else{
+        while(temp -> link != *head){
+            temp = temp -> link;
+        }
+        temp -> link = newnode;
+        newnode -> link = *head;
+    }
+}
+// return the first node for cycle detection in O(1) SC without using maps 
+node *floydCircularDetection(node *head)
+{
+    if(head == NULL){
+        return NULL;
+    }
+    node *slow = head;
+    node *fast = head;
+    while(slow != NULL && fast != NULL){
+        fast = fast -> link;
+        if(fast != NULL){
+            fast = fast -> link;
+        }
+        slow = slow -> link;
+        if(slow == head){
+            cout<<"Cycle detected:";
+            return slow;
+        }
+    }
+}
+int firstNodeAtFloydCycleDetection(node *head)
+{
+    node *intersection = floydCircularDetection(head);
+    node *slow = head;
+    while(slow != intersection){
+        slow = slow -> link;
+    }
+    return slow -> data;
+}
+void display(node *head)
+{
+    node *temp = head;
+    do{
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    while(temp != head);
+    cout<<endl;
+}
+int main()
+{
+    node *head = NULL;
+    insertAtTail(&head,21);
+    insertAtTail(&head,22);
+    insertAtTail(&head,23);
+    insertAtTail(&head,24);
+    insertAtTail(&head,25);
+    insertAtTail(&head,26);
+    display(head);
+    cout<<firstNodeAtFloydCycleDetection(head)<<endl;
+}
