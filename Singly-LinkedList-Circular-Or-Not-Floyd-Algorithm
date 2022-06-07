@@ -1,0 +1,73 @@
+// floyd's cycle detection algo
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> data = X;
+    return newnode;
+}
+void insertAtTail(node **head,int X)
+{
+    node *temp = *head;
+    node *newnode = createnode(X);
+    if(*head == NULL){
+        *head = newnode;
+        newnode -> link = newnode;
+    }
+    else{
+        while(temp -> link != *head){
+            temp = temp -> link;
+        }
+        temp -> link = newnode;
+        newnode -> link = *head;
+    }
+}
+bool floyidCycle(node *head)
+{   
+    if(head == NULL){
+        return false;
+    }
+    node *slow = head;
+    node *fast = head; 
+    while(slow != NULL && fast != NULL){
+        fast = fast -> link;
+        if(fast != NULL){
+            fast = fast -> link;
+        }
+        slow = slow -> link;
+        if(slow == fast){
+            cout<<"Cycle is present at:"<<slow -> data<<endl;
+            return true;
+        }
+    }
+    return false;   // if loop get completely traversed then loop is not present.(i.e, return false)
+}
+void display(node *head)
+{
+    node *temp = head;
+    do{
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    while(temp != head);
+    cout<<endl;
+}
+int main()
+{
+    node *head = NULL;
+    insertAtTail(&head,21);
+    insertAtTail(&head,22);
+    insertAtTail(&head,23);
+    insertAtTail(&head,24);
+    insertAtTail(&head,25);
+    insertAtTail(&head,26);
+    display(head);
+    cout<<floyidCycle(head)<<endl;
+}
