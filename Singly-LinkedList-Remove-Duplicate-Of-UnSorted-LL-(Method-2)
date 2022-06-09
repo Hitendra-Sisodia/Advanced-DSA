@@ -1,0 +1,73 @@
+// Remove Duplicate From Unsorted Linked list(Method - 2) O(N)
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> data = X;
+    return newnode;
+}
+void insertionAtTail(node **head,int X)
+{
+    node *temp = *head;
+    node *newnode = createnode(X);
+    if(*head == NULL){
+        *head = newnode;
+    }
+    else{
+        while(temp -> link != NULL){
+            temp = temp -> link;
+        }
+        temp -> link = newnode;
+    }
+}
+void removeDuplicate(node **head)
+{
+    if(*head == NULL){
+        return ;
+    }
+    map<int,bool> visited;
+    node *prev = NULL;
+    node *current = *head;
+    while(current != NULL){
+        if(visited[current -> data] != true){
+            visited[current -> data] = true;
+            prev = current;
+            current = current -> link;
+        }
+        else{
+            node *next  = current -> link;
+            delete(current);
+            prev -> link = next;
+            current = prev -> link;
+        }
+    }
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+int main()
+{
+    node *head= NULL;
+    insertionAtTail(&head,21);  
+    insertionAtTail(&head,25);  
+    insertionAtTail(&head,21);  
+    insertionAtTail(&head,21);  
+    insertionAtTail(&head,266); 
+    insertionAtTail(&head,26);  
+    display(head);              
+    removeDuplicate(&head);
+    display(head);
+}
