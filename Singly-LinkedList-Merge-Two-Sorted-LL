@@ -1,0 +1,106 @@
+// Merge Two sorted linked list
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> data = X;
+    return newnode;
+}
+void insertAtTail(node **head,int X)
+{
+    node *temp = *head;
+    node *newnode = createnode(X);
+    if(*head == NULL){
+        *head = newnode;
+    }
+    else{
+        while(temp -> link != NULL){
+            temp = temp -> link;
+        }
+        temp -> link = newnode;
+    }
+}
+void solve(node **head1,node **head2)
+{   
+    node *temp1 = *head1;
+    node *temp2 = *head2;
+    node *current = *head1;
+    node *forward = current -> link;
+    // if first list conatin only one node then points list1 -> link part to entire list2
+    if(temp1 -> link == NULL){
+        temp1 -> link = temp2;
+    }
+    while(temp2 != NULL && forward != NULL){
+        if(temp2 -> data >= current -> data && temp2 -> data <= forward -> data){
+            // backup of second linked i.e, forward node
+            node *next2 = temp2 -> link;  
+            // update nodes
+            current -> link = temp2;
+            temp2 -> link = forward;
+            // update pointers
+            current = current -> link;
+            temp2 = next2;
+        }
+        else{
+            current = forward;
+            forward = forward -> link;
+            // linked List 2 > linked List 1, then forward became NULL
+            if(forward == NULL){
+                current -> link = temp2;
+            }
+        }
+    }
+}
+node* mergeSorted(node *head1,node *head2)
+{   
+    // if head1 is empty case
+    if(head1 == NULL){
+        return head2;
+    }
+    // if head2 is empty case
+    if(head2 == NULL){
+        return head2;
+    }
+    // compare of first data to get smaller list first.
+    if(head1 -> data >= head2 -> data){
+        solve(&head2,&head1);
+        return head2;
+    }
+    else{
+        solve(&head1,&head2);
+        return head1;
+    }
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+int main()
+{
+    node *head1 = NULL;
+    node *head2 = NULL;
+    insertAtTail(&head1,1);
+    insertAtTail(&head2,3);
+    insertAtTail(&head1,5);
+    insertAtTail(&head1,6);
+    insertAtTail(&head2,5);
+    insertAtTail(&head2,7);
+    insertAtTail(&head2,8);
+    insertAtTail(&head2,9);
+    display(head1);
+    display(head2);
+    node *sortedHead = mergeSorted(head1,head2);
+    display(sortedHead);
+}
