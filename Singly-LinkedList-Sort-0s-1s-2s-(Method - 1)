@@ -1,0 +1,87 @@
+// sort 0s 1s and 2s in linked list(Method - 1)
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> data = X;
+}
+void insertAtTail(node **head,int X)
+{
+    node *temp = *head;
+    node *newnode = createnode(X);
+    if(*head == NULL){
+        *head = newnode;
+    }
+    else{
+        while(temp -> link != NULL){
+            temp = temp -> link;
+        }
+        temp -> link = newnode;
+    }
+}
+void sort(node **head)
+{
+    node *temp = *head;
+    int zeroCount = 0;
+    int oneCount = 0;
+    int twoCount = 0;
+    while(temp != NULL){
+        if(temp -> data == 0){
+            zeroCount++;
+        }
+        else if(temp -> data == 1){
+            oneCount++;
+        }
+        else if(temp -> data == 2){
+            twoCount++;
+        }
+        temp = temp -> link;
+    }
+    node *current = *head;
+    while(current != NULL){
+        if(zeroCount != 0){
+            current -> data = 0;
+            zeroCount--;
+        }
+        else if(oneCount != 0){
+            current -> data = 1;
+            oneCount--;
+        }
+        else if(twoCount != 0){
+            current -> data = 2;
+            twoCount--;
+        }
+        current = current -> link;
+    }
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+int main()
+{
+    node *head = NULL;
+    insertAtTail(&head,0);
+    insertAtTail(&head,0);
+    insertAtTail(&head,1);
+    insertAtTail(&head,0);
+    insertAtTail(&head,2);
+    insertAtTail(&head,1);
+    insertAtTail(&head,1);
+    insertAtTail(&head,2);
+    display(head);
+    sort(&head);
+    display(head);
+}
