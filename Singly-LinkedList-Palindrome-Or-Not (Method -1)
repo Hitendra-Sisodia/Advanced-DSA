@@ -1,0 +1,80 @@
+// palindrome Linked List or not (Method - 1)
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> data = X;
+    return newnode;
+}
+void insertAtTail(node **head,int X)
+{
+    node *temp = *head;
+    node *newnode = createnode(X);
+    if(*head == NULL){
+        *head = newnode;
+    }
+    else{
+        while(temp -> link != NULL){
+            temp = temp -> link;
+        }
+        temp -> link = newnode;
+    }
+}
+bool solve(vector<int> array)
+{
+    int s = 0;
+    int e = array.size() - 1;
+    while(s<=e){
+        if(array[s] != array[e]){
+            return false;
+        }
+        s++;
+        e--;
+    }
+    return true;
+}
+bool checkPalindrome(node **head)
+{
+    vector<int> array;
+    node *temp = *head;
+    while(temp != NULL){
+        array.push_back(temp -> data);
+        temp = temp -> link;
+    }
+    if(solve(array)){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+int main()
+{
+    node *head = NULL;
+    insertAtTail(&head,21);
+    insertAtTail(&head,22);
+    insertAtTail(&head,23);
+    insertAtTail(&head,24);
+    insertAtTail(&head,23);
+    insertAtTail(&head,22);
+    insertAtTail(&head,21);
+    display(head);
+    cout<<checkPalindrome(&head)<<endl;
+    display(head);
+}
