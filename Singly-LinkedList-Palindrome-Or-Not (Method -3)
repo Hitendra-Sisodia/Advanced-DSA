@@ -1,0 +1,117 @@
+// palindrome Linked List or not (Method - 3)
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> data = X;
+    return newnode;
+}
+void insertAtTail(node **head,int X)
+{
+    node *temp = *head;
+    node *newnode = createnode(X);
+    if(*head == NULL){
+        *head = newnode;
+    }
+    else{
+        while(temp -> link != NULL){
+            temp = temp -> link;
+        }
+        temp -> link = newnode;
+    }
+}
+int length(node *head)
+{
+    node *temp = head;
+    int len = 0;
+    while(temp != NULL){
+        len++;
+        temp = temp -> link;
+    }
+    return len;
+}
+node *findMidNode(node *head)
+{   
+    node *temp = head;
+    int len = length(head);
+    int mid = len/2;
+    cout<<"Mid:"<<mid<<endl;
+    temp = head;
+    int s = 1;
+    while(s < mid){
+        temp = temp -> link;
+        s++;
+    }
+    return temp;
+}
+node *reverseAfterMid(node *firstNode)
+{
+    node *prev = NULL;
+    node *current = firstNode;
+    while(current != NULL){
+        node *forward = current -> link;
+        current -> link = prev;
+        prev = current;
+        current = forward;
+    }
+    return prev;
+}
+bool checkPalindrome(node **head)
+{   
+    node *temp = *head;
+    if(*head == NULL){
+        return false;
+    }
+    if(temp -> link == NULL){
+        return true;
+    }
+    // step1: find Midnode
+    node *midNode = findMidNode(*head);
+    // step2: reverse nodes after mid
+    temp = midNode -> link;
+    midNode -> link = reverseAfterMid(temp);
+    // step3: compare values before mid and after mide
+    node *head1 = *head;
+    node *head2 = midNode;
+    // This will handel both odd and even cases if
+    // 1.odd: Then temp1  condition get hits and last value of temp2 doesn't check that single value is already palindrome.
+    // 2.even: Then temp1 and temp2 both conditon gets hits.
+    while(head2 != NULL && head1 != midNode -> link){
+        if(head1 -> data != head2 -> link -> data){
+            return false;
+        }
+        head1 = head1 -> link;
+        head2 = head2 -> link;
+    }
+    return true;
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+int main()
+{
+    node *head = NULL;
+    insertAtTail(&head,21);
+    insertAtTail(&head,22);
+    insertAtTail(&head,23);
+    insertAtTail(&head,22);
+    insertAtTail(&head,23);
+    insertAtTail(&head,22);
+    insertAtTail(&head,21);
+    display(head);
+    cout<<checkPalindrome(&head)<<endl;
+    display(head);
+}
