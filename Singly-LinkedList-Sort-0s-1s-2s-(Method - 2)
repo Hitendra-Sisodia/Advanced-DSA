@@ -1,0 +1,98 @@
+// sort 0s 1s and 2s in linked list(Method - 2)
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> data = X;
+    return newnode;
+}
+void insertAtTail(node **head,int X)
+{
+    node *temp = *head;
+    node *newnode = createnode(X);
+    if(*head == NULL){
+        *head = newnode;
+    }
+    else{
+        while(temp -> link != NULL){
+            temp = temp -> link;
+        }
+        temp -> link = newnode;
+    }
+}
+void insertAtTails(node **tail,node *current)
+{
+    node *temp = *tail;
+    temp -> link = current;
+    *tail = current;
+}
+void sort(node **head)
+{
+    // create dummy nodes
+    node *zeroHead = createnode(-1);
+    node *zeroTail = zeroHead;
+    node *oneHead = createnode(-1);
+    node *oneTail = oneHead;
+    node *twoHead = createnode(-1);
+    node *twoTail = twoHead;
+    node *current = *head;
+    while(current != NULL){
+        if(current -> data == 0){
+            insertAtTails(&zeroTail,current);
+        }
+        else if(current -> data == 1){
+            insertAtTails(&oneTail,current);
+        }
+        else if(current -> data == 2){
+            insertAtTails(&twoTail,current);
+        }
+        current = current -> link;
+    }
+    // merge all dummy nodes
+    // if middle linkedlist i.e, is NULL handling case
+    if(oneHead -> link != NULL){
+        zeroTail -> link = oneHead -> link;
+    }
+    else{
+        zeroTail -> link = twoHead -> link;
+    }
+    oneTail -> link = twoHead -> link;
+    twoTail -> link = NULL;
+    //Update head with zeroHead -> link  pointer
+    *head = zeroHead -> link;
+    // delete dummy nodes
+    delete zeroHead;
+    delete oneHead;
+    delete twoHead;
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+int main()
+{
+    node *head = NULL;
+    insertAtTail(&head,0);
+    insertAtTail(&head,0);
+    insertAtTail(&head,1);
+    insertAtTail(&head,2);
+    insertAtTail(&head,1);
+    insertAtTail(&head,1);
+    insertAtTail(&head,0);
+    insertAtTail(&head,2);
+    display(head);
+    sort(&head);
+    display(head);
+}
