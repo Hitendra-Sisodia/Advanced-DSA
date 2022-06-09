@@ -32,7 +32,7 @@ bool solve(node *head,node *midNode)
     node *temp1 = head;
     node *temp2 = midNode;
     // This will handel both odd and even cases if
-    // 1.odd: Then temp1  condition get hits and last value of temp2 doesn't check which already and single value is already palindrome.
+    // 1.odd: Then temp1  condition get hits and last value of temp2 doesn't check that single value is already palindrome.
     // 2.even: Then temp1 and temp2 both conditon gets hits.
     while(temp1 != midNode -> link && temp2 != NULL){
         if(temp1 -> data != temp2 -> link -> data){
