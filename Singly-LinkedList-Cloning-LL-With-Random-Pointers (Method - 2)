@@ -1,0 +1,96 @@
+// cloning Linked list with the help of random pointers (Method - 2)
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+    node *random;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> random = NULL;
+    newnode -> data = X;
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+node *cloneWithRandomPointers(node *head)
+{   
+    node *temp = head;
+    node *newHead = NULL;
+    node *current = NULL;
+    // step1: create clone of orginal linked list
+    while(temp != NULL){
+        if(newHead == NULL){
+            newHead = createnode(temp -> data);
+            current = newHead;
+        }
+        else{
+            current -> link = createnode(temp -> data);
+            current = current -> link;
+        }
+        temp = temp -> link;
+    }
+    // step2: insert clone nodes in between of orginal linked list
+    temp = head;
+    current = newHead;
+    while(temp != NULL){
+        node *tempForward = temp -> link;
+        temp -> link = current;
+        node *currentForward = current -> link;
+        current -> link = tempForward;
+        temp = tempForward;
+        current = currentForward;
+    }
+    // step3: insert random pointers in clone linked list(that present between of orginal linked list)
+    temp = head;
+    while(temp != NULL){
+        temp -> link -> random = temp -> random -> link;
+        temp = temp -> link -> link;
+    }
+    // step4: revert links changes done in step 2
+    temp = head;
+    current = newHead;
+    while(temp != NULL){
+        temp -> link = current -> link;
+        temp = temp -> link;
+        // When temp became NULL we can't access temp -> link;
+        if(temp != NULL){
+            current -> link = temp -> link;
+        }
+        current = current -> link;
+    }
+    return newHead;
+}
+int main()
+{
+    node *node1 = createnode(1);
+    // node1 -> random = node1 -> link -> link;
+    node1 -> link = createnode(2);
+    // node1-> link -> random = node1;
+    node1 -> link -> link = createnode(3);
+    // node1 -> link -> link -> random = node1 -> link -> link -> link -> link;
+    node1 -> link -> link -> link = createnode(4);
+    // node1 -> link -> link -> link -> random = node1 -> link -> link;
+    node1 -> link -> link -> link -> link = createnode(5);
+    // node1 -> link -> link -> link -> link -> random = node1 -> link;
+    node1 -> link -> link -> link -> link -> link = NULL;
+    node1 -> random = node1 -> link -> link;
+    node1-> link -> random = node1;
+    node1 -> link -> link -> random = node1 -> link -> link -> link -> link;
+    node1 -> link -> link -> link -> random = node1 -> link -> link;
+    node1 -> link -> link -> link -> link -> random = node1 -> link;
+    display(node1);
+    node *newHead = cloneWithRandomPointers(node1);
+    display(newHead);
+    cout<<newHead -> link -> link -> link -> link -> random -> data<<endl;
+}
