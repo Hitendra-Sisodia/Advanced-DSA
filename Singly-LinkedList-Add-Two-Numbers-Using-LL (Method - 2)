@@ -1,0 +1,117 @@
+// add two numbers represented by linked list(Method - 2)
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> data = X;
+    return newnode;
+}
+void insertAtTail(node **head,int X)
+{
+    node *temp = *head;
+    node *newnode = createnode(X);
+    if(*head == NULL){
+        *head = newnode;
+    }
+    else{
+        while(temp -> link != NULL){
+            temp = temp -> link;
+        }
+        temp -> link = newnode;
+    }
+}
+node *reverse(node *head)
+{
+    node *prev = NULL;
+    node *current = head;
+    while(current != NULL){
+        node *forward = current -> link;
+        current -> link = prev;
+        prev = current;
+        current = forward;
+    }
+    return prev;
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+node *add(node *head1,node *head2)
+{
+    if(head1 == NULL){
+        return head2;
+    }
+    if(head2 == NULL){
+        return head2;
+    }
+    // step1: reverse existing list
+    node *h1 = reverse(head1);
+    node *h2 = reverse(head2);
+    // step2: add reverse linked list in newHead pointer
+    node *temp1 = h1;
+    node *temp2 = h2;
+    node *newHead = NULL;
+    node *current = NULL;
+    int rem = 0;
+    while(temp1 != NULL ||  temp2 != NULL || rem != 0){
+        // checking for current nodes values if points to null then take by default 0 value in sum.
+        int value1 = 0;
+        if(temp1 != NULL){
+            value1 = temp1 -> data;
+        }
+        int value2 = 0;
+        if(temp2 != NULL){
+            value2 = temp2 -> data;
+        }
+        int sum = value1 + value2 + rem;
+        int digit = sum % 10; 
+        rem = sum / 10;
+        if(newHead == NULL){
+            newHead = createnode(digit);
+            current = newHead;
+        }
+        else{
+            current -> link = createnode(digit);
+            current = current -> link;
+        }
+        if(temp1 != NULL){
+            temp1 = temp1 -> link;
+        }
+        if(temp2 != NULL){
+            temp2 = temp2 -> link;
+        }
+    }
+    // step3: Then again perfrom reverse operation.
+    newHead = reverse(newHead);
+    return newHead;
+}
+
+int main()
+{
+    node *head1 = NULL;
+    node *head2 = NULL;
+    insertAtTail(&head1,8);
+    insertAtTail(&head1,2);
+    insertAtTail(&head1,6);
+    insertAtTail(&head2,4);
+    insertAtTail(&head2,5);
+    insertAtTail(&head2,6);
+    insertAtTail(&head2,3);
+    insertAtTail(&head2,6);
+    display(head1);
+    display(head2);
+    node *newHead = add(head1,head2);
+    display(newHead);
+}
