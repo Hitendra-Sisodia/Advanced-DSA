@@ -1,0 +1,113 @@
+// Merge Sort in linked list
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> data = X;
+    return newnode;
+}
+void insertAtTail(node **head,int X)
+{
+    node *temp = *head;
+    node *newnode = createnode(X);
+    if(temp == NULL){
+        *head = newnode;
+    }
+    else{
+        while(temp -> link != NULL){
+            temp = temp -> link;
+        }
+        temp -> link = newnode;
+    }
+}
+node *midNode(node *head)
+{
+    node *slow = head;
+    node *fast = slow -> link;
+    while(fast != NULL && fast -> link != NULL){
+        slow = slow -> link;
+        fast = fast -> link -> link;
+    }
+    return slow;
+}
+node *merge(node *left,node *right)
+{
+    if(left == NULL){
+        return right;
+    }
+    if(right == NULL){
+        return left;
+    }
+    node *ans = createnode(-1);
+    node *temp = ans;
+    while(left != NULL && right != NULL){
+        if(left -> data < right -> data){
+            temp -> link = left;
+            temp = left;
+            left = left -> link;
+        }
+        else{
+            temp -> link = right;
+            temp = right;
+            right = right -> link;
+        }
+    }
+    while(left != NULL){
+        temp -> link = left;
+        temp = left;
+        left = left -> link;
+    }
+    while(right != NULL){
+        temp -> link = right;
+        temp = right;
+        right = right -> link;
+    }
+    ans = ans -> link;
+    return ans;
+}
+node *mergeSortLL(node *head)
+{
+    if(head == NULL || head -> link == NULL){
+        return head;
+    }
+    // step1: Divide the LL in two half after finding mid.
+    node *mid = midNode(head);
+    node *left = head;
+    node *right = mid -> link;
+    mid -> link = NULL;
+    // step2: recursive calls to sort both Havles
+    left = mergeSortLL(left);
+    right = mergeSortLL(right);
+    // step3: merge both left and right halves
+    node *result = merge(left,right);
+    return result;
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+int main()
+{
+    node *head = NULL;
+    insertAtTail(&head,22);
+    insertAtTail(&head,22);
+    insertAtTail(&head,23);
+    insertAtTail(&head,24);
+    insertAtTail(&head,22);
+    insertAtTail(&head,1);
+    display(head);
+    node *newHead = mergeSortLL(head);
+    display(newHead);
+}
