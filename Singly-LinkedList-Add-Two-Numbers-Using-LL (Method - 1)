@@ -1,0 +1,126 @@
+// add two numbers represented by linked list(Method - 1)
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> data = X;
+    return newnode;
+}
+void insertAtTail(node **head,int X)
+{
+    node *temp = *head;
+    node *newnode = createnode(X);
+    if(*head == NULL){
+        *head = newnode;
+    }
+    else{
+        while(temp -> link != NULL){
+            temp = temp -> link;
+        }
+        temp -> link = newnode;
+    }
+}
+node *reverse(node *head)
+{
+    node *prev = NULL;
+    node *current = head;
+    while(current != NULL){
+        node *forward = current -> link;
+        current -> link = prev;
+        prev = current;
+        current = forward;
+    }
+    return prev;
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+node *add(node *head1,node *head2)
+{
+    if(head1 == NULL){
+        return head2;
+    }
+    if(head2 == NULL){
+        return head2;
+    }
+    // step1: reverse existing list
+    node *h1 = reverse(head1);
+    node *h2 = reverse(head2);
+    // step2: add reverse linked list in newHead pointer
+    node *temp1 = h1;
+    node *temp2 = h2;
+    node *newHead = NULL;
+    node *current = NULL;
+    int rem = 0;
+    while(temp1 != NULL && temp2 != NULL){
+        int sum = temp1 -> data + temp2 -> data + rem;
+        int digit = sum%10;
+        rem = sum/10;
+        if(newHead == NULL){
+            newHead = createnode(digit);
+            current = newHead;
+        }
+        else{
+            current -> link = createnode(digit);
+            current = current -> link;
+        }
+        temp1 = temp1 -> link;
+        temp2 = temp2 -> link;
+    }
+    while(temp1 != NULL){
+        int sum = temp1 -> data + rem;
+        int digit = sum % 10;
+        rem = sum / 10;
+        current -> link = createnode(digit);
+        current = current -> link;
+        temp1 = temp1 -> link;
+    }
+    while(temp2 != NULL){
+        int sum = temp2 -> data + rem;
+        int digit = sum % 10;
+        rem = sum / 10;
+        current -> link = createnode(digit);
+        current = current -> link;
+        temp2 = temp2 -> link; 
+    }
+    while(rem != 0){
+        int sum = rem;
+        int digit = sum % 10;
+        rem = sum / 10;
+        current -> link = createnode(digit);
+        current = current -> link;
+    }
+    newHead = reverse(newHead);
+    return newHead;
+}
+
+int main()
+{
+    node *head1 = NULL;
+    node *head2 = NULL;
+    insertAtTail(&head1,9);
+    insertAtTail(&head1,2);
+    insertAtTail(&head1,6);
+    //insertAtTail(&head2,4);
+    //insertAtTail(&head2,5);
+    insertAtTail(&head2,6);
+    insertAtTail(&head2,3);
+    insertAtTail(&head2,6);
+    display(head1);
+    display(head2);
+    node *newHead = add(head1,head2);
+    display(newHead);
+}
