@@ -1,0 +1,78 @@
+// cloning Linked list with the help of random pointers (Method - 1)
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+    node *random;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> random = NULL;
+    newnode -> data = X;
+}
+node *cloneWithRandomPointers(node *head)
+{   
+    map<node *,node *> mapping;
+    node *temp = head;
+    node *newHead = NULL;
+    node *current = NULL;
+    // step1: creating clone and set mapping
+    while(temp != NULL){
+        if(newHead == NULL){
+            newHead = createnode(temp -> data);
+            current = newHead;
+            mapping[temp] = current;
+        }
+        else{
+            current -> link = createnode(temp -> data);
+            current = current -> link;
+            mapping[temp] = current;
+        }
+        temp = temp -> link;
+    }
+    // step2: changing random pointers of clone with the help of mapping created.
+    temp = head;
+    current = newHead;
+    while(current != NULL){
+        current -> random = mapping[temp -> random];
+        current = current -> link;
+        temp = temp -> link;
+    }
+    return newHead;
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+int main()
+{
+    node *node1 = createnode(1);
+    // node1 -> random = node1 -> link -> link;
+    node1 -> link = createnode(2);
+    // node1-> link -> random = node1;
+    node1 -> link -> link = createnode(3);
+    // node1 -> link -> link -> random = node1 -> link -> link -> link -> link;
+    node1 -> link -> link -> link = createnode(4);
+    // node1 -> link -> link -> link -> random = node1 -> link -> link;
+    node1 -> link -> link -> link -> link = createnode(5);
+    // node1 -> link -> link -> link -> link -> random = node1 -> link;
+    node1 -> link -> link -> link -> link -> link = NULL;
+    node1 -> random = node1 -> link -> link;
+    node1-> link -> random = node1;
+    node1 -> link -> link -> random = node1 -> link -> link -> link -> link;
+    node1 -> link -> link -> link -> random = node1 -> link -> link;
+    node1 -> link -> link -> link -> link -> random = node1 -> link;
+    display(node1);
+    node *newHead = cloneWithRandomPointers(node1);
+    display(newHead);
+    cout<<newHead -> link -> link -> link -> link -> random -> data<<endl;
+}
