@@ -1,0 +1,70 @@
+// Stack implementation using array
+#include<iostream>
+using namespace std;
+int Maxsize = 5;
+int array[5];
+void push(int top,int data)
+{
+    if(top == Maxsize -1){
+        cout<<"Overflow"<<endl;
+    }
+    else{
+        top++; 
+        array[top] = data; 
+    }
+}
+void pop(int &top)
+{
+    if(top == -1){
+        cout<<"Underflow"<<endl;
+    }
+    else{
+        top--; 
+    }
+}
+void peek(int top)
+{
+    cout<<"Peek:"<<array[0]<<endl;
+}
+void display(int top) 
+{
+    for(int i=0 ; i<=top; i++){
+        cout<<array[i]<<" ";
+    }
+    cout<<endl;
+}
+void isfull(int top)
+{
+    if(top == Maxsize -1){
+        cout<<"Stack is full"<<endl;
+    }
+    else{
+        cout<<"Stack is not full"<<endl;
+    }
+}
+void isempty(int top)
+{
+    if(top == -1){
+        cout<<"Stack is empty"<<endl;
+    }
+    else{
+        cout<<"Stack is not empty"<<endl;
+    }
+}
+int main()
+{
+    int top = -1;  
+    push(top,24);
+    push(top,25);
+    push(top,26);
+    push(top,27);
+    push(top,28);
+    push(top,29);
+    isfull(top);
+    display(top);
+    pop(top);
+    display(top);
+    peek(top);
+    isempty(top);
+    return 0;
+}
