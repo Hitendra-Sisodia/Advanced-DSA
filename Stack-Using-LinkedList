@@ -1,0 +1,76 @@
+// Stack Using linked list
+#include<iostream>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+};
+void push(node* &head, int x)
+{   
+    node *newnode = (node *)malloc(sizeof(node));
+    if(head == NULL){
+        newnode -> link = NULL;
+        newnode -> data = x;
+        head = newnode;
+    }
+    else{
+        newnode -> data = x;
+        newnode -> link = head;
+        head = newnode;
+    }
+}
+void pop(node* &head)
+{
+    if(head == NULL){
+        cout<<"underflow"<<endl;
+    }
+    else{
+        head = head -> link;
+    }
+}
+void peek(node *head)
+{
+    node *temp = head;
+    node *temp2;
+    while(temp != NULL){
+        temp2 = temp;
+        temp = temp -> link;
+    }
+    cout<<"Peek:"<<temp2 -> data<<endl;
+}
+void isfull(node *head){
+    cout<<"Stack using linked list can't be Full"<<endl;
+}
+void isempty(node *head){
+    if(head == NULL){
+        cout<<"Stack is empty"<<endl;
+    }
+    else{
+        cout<<"Stack is not empty"<<endl;
+    }
+}
+void display(node *head) 
+{
+    node *temp = head; 
+    while(temp != NULL){
+        cout<< temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+int main()
+{   
+    node *head = NULL; //104
+    push(head,24); 
+    push(head,46);  
+    push(head,100);  
+    push(head,203);  
+    push(head,75);  
+    display(head);  // 104
+    pop(head);
+    display(head);
+    peek(head);
+    isfull(head);
+    isempty(head);
+}
