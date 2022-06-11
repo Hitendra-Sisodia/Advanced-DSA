@@ -1,0 +1,93 @@
+// merge sort in linked list
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node *link;
+    node *down;
+};
+node *createnode(int X)
+{
+    node *newnode = (node *)malloc(sizeof(node));
+    newnode -> link = NULL;
+    newnode -> down = NULL;
+    newnode -> data = X;
+    return newnode;
+}
+void insertAtTail(node **head,int X)
+{
+    node *temp = *head;
+    node *newnode = createnode(X);
+    if(*head == NULL){
+        *head = newnode;
+    }
+    else{
+        while(temp -> link != NULL){
+            temp = temp -> link;
+        }
+        temp -> link = newnode;
+    }
+}
+node *merge(node *head1,node *head2)
+{
+    node *newHead = createnode(-1);
+    node *current = newHead;
+    while(head1 != NULL && head2 != NULL){
+        if(head1 -> data <= head2  -> data){
+            current -> link = head1;
+            current = head1;
+            head1 = head1 -> down;
+        }
+        else{
+            current -> link = head2;
+            current = head2;
+            head2 = head2 -> down;
+        }
+    }
+    while(head1 != NULL){
+        current -> link = head1;
+        current = head1;
+        head1 = head1 -> down;        
+    }
+    while(head2 != NULL){
+        current -> link = head2;
+        current = head2;
+        head2 = head2 -> down;
+    }
+    newHead = newHead -> link;
+    return newHead;
+}
+node *flatten(node *head)
+{   
+    // base case of recursion
+    if(head == NULL  || head -> link == NULL){
+        return head;
+    }
+    // recursive calls
+    // solve right part using recursion and merge with down part.
+    head -> link = flatten(head -> link);
+    // now merge down and right part
+    head = merge(head,head -> link);
+    return head;
+}
+void display(node *head)
+{
+    node *temp = head;
+    while(temp != NULL){
+        cout<<temp -> data<<" ";
+        temp = temp -> link;
+    }
+    cout<<endl;
+}
+int main()
+{
+    node *head = NULL;
+    head = createnode(1);
+    head -> down = createnode(2);
+    head -> link  = createnode(3);
+    head -> link -> down = createnode(4); 
+    display(head);
+    node *newHead = flatten(head);
+    display(newHead);
+}
