@@ -1,0 +1,80 @@
+//stack functions using an linked list
+#include<bits/stdc++.h>
+using namespace std;
+static int N = 5; // Size of stack pre defined
+class node
+{   
+    public:
+    int data;
+    node *link;
+    node(int x){
+        this -> data = x;
+        this -> link = NULL;
+    }
+};
+void push(node* &top,int data)
+{   
+    node *temp = top;
+    int count = 0;
+    while(temp!= NULL){
+        count++;
+        temp = temp -> link;
+    }
+    if(count >= N){
+        cout<<"Over Flow"<<endl;
+    }
+    else{
+        node *newnode = new node(data);
+        newnode -> link = top;
+        top = newnode;
+    }
+}
+void pop(node* &top)
+{   
+    if(top == NULL){
+        cout<<"Underflow"<<endl;
+    }
+    else{
+        top = top -> link;
+    }
+}
+void peak(node* &top)
+{   
+    if(top == NULL){
+        cout<<"No peak value found stack is empty"<<endl;
+    }
+    else{
+        cout<<"Peak:"<<top -> data<<endl;
+    }
+}
+void display(node* &top)
+{   
+    if(top == NULL){
+        cout<<"Empty Stack";
+    }
+    else{
+        node *temp =  top;
+        while(temp != NULL){
+            cout<< temp -> data<<" ";
+            temp = temp -> link;
+        }
+    cout<<endl;
+    }
+}
+int main()
+{
+    node *newnode = new node(12);
+    node *top = newnode;
+    push(top,13);
+    push(top,14);
+    push(top,15);
+    push(top,20);
+    push(top,25);
+    peak(top);
+    display(top);
+    pop(top);
+    pop(top);
+    peak(top);
+    display(top);
+    return 0;
+}
