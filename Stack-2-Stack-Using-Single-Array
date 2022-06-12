@@ -1,0 +1,149 @@
+// construct two stack in single array
+#include<iostream>
+# define MAXSIZE 5
+using namespace std;
+struct stack
+{   
+    int array[MAXSIZE];
+    int data;
+    int top1;
+    int top2;
+};
+void createStack1(stack *s)
+{
+    if(s -> top2 != 0){
+        s -> top1 = -1;
+    }
+    else{
+        cout<<"Top2 is Full i.e, 0 Therefore Stack1 is not possible"<<endl;
+    }
+}
+void createStack2(stack *s)
+{
+    if(s -> top1 != MAXSIZE - 1){
+        s -> top2 = MAXSIZE;
+    }
+    else{
+        cout<<"Top1 is Full i.e, 4 Therefore Stack2 is not possible"<<endl;
+    }
+}
+bool isFullTop1(stack *s)
+{
+    if(s -> top1 == MAXSIZE - 1){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+bool isFullTop2(stack *s)
+{
+    if(s -> top2 == 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+bool isEmptyTop1(stack *s)
+{
+    if(s -> top1 == -1){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+bool isEmptyTop2(stack *s)
+{
+    if(s -> top2 == MAXSIZE){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+void push1(stack *s,int X)
+{
+    if(isFullTop1(s)){
+        cout<<"Stack 1 is Over Flow"<<endl;
+    }
+    else{
+        s -> top1++;
+        s -> array[s -> top1] = X;
+    }
+}
+void push2(stack *s,int X)
+{
+    if(isFullTop2(s)){
+        cout<<"Stack 2 is Over Flow"<<endl;
+    }
+    else{
+        s -> top2--;
+        s -> array[s -> top2] = X;
+    }
+}
+void pop1(stack *s)
+{
+    if(isEmptyTop1(s)){
+        cout<<"Stack 1 is Under flow"<<endl;
+    }
+    else{
+        s -> top1--;
+    }
+}
+void pop2(stack *s)
+{
+    if(isEmptyTop2(s)){
+        cout<<"Stack 2 is Under Flow"<<endl;
+    }
+    else{
+        s -> top2++;
+    }
+}
+void peek1(stack *s)
+{
+    if(isEmptyTop1(s)){
+        cout<<"Stack 1 is Under flow"<<endl;
+    }
+    else{
+        cout<<"Peek1: "<<s -> array[s -> top1]<<endl;
+    }
+}
+void peek2(stack *s)
+{
+    if(isEmptyTop2(s)){
+        cout<<"Stack 2 is Under flow"<<endl;
+    }
+    else{
+        cout<<"Peek2: "<<s -> array[s -> top2]<<endl;
+    }
+}
+void display(stack *s)
+{
+    if(s -> top2 != 0 && s -> top1 >= 0){
+        for(int i = 0 ; i <= s -> top1 ; i++){
+            cout<<s -> array[i]<<" ";
+        }
+    }
+    if(s -> top1 != MAXSIZE - 1 && s -> top2 < MAXSIZE){
+        for(int i = s -> top2 ; i < MAXSIZE ; i++){
+            cout<<s -> array[i]<<" ";
+        }
+    }
+    cout<<endl;
+}
+int main()
+{
+    struct stack s;
+    createStack1(&s);
+    createStack2(&s);
+    push1(&s,21);
+    push1(&s,220);
+    push1(&s,23);
+    push1(&s,24);
+    push2(&s,25);
+    display(&s);
+    peek1(&s);
+    peek2(&s);
+}
