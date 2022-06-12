@@ -1,76 +1,74 @@
-// Stack Using linked list
+// Stack using linked list
 #include<iostream>
 using namespace std;
-struct node
+struct stack
 {
     int data;
-    node *link;
+    stack *link;
 };
-void push(node* &head, int x)
-{   
-    node *newnode = (node *)malloc(sizeof(node));
+bool isEmpty(stack *head)
+{
     if(head == NULL){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+void push(stack **head,int X)
+{
+    stack *temp = *head;
+    stack *newnode = (stack *)malloc(sizeof(stack));
+    if(*head == NULL){
+        newnode -> data = X;
         newnode -> link = NULL;
-        newnode -> data = x;
-        head = newnode;
+        *head = newnode;
     }
     else{
-        newnode -> data = x;
-        newnode -> link = head;
-        head = newnode;
+        newnode -> data = X;
+        newnode -> link = *head;
+        *head = newnode;
     }
 }
-void pop(node* &head)
-{
-    if(head == NULL){
-        cout<<"underflow"<<endl;
+void pop(stack **head)
+{   
+    stack *temp = *head;
+    if(isEmpty(*head)){
+        cout<<"Stack is Underflow"<<endl;
     }
     else{
-        head = head -> link;
+        *head = temp -> link;
+        free(temp);
     }
 }
-void peek(node *head)
+void peek(stack *head)
 {
-    node *temp = head;
-    node *temp2;
+    if(isEmpty(head)){
+        cout<<"Stack is UnderFlow"<<endl;
+    }
+    else{
+        cout<<"Peek: "<<head -> data<<endl;
+    }
+}
+void display(stack *head)
+{
+    stack *temp = head;
     while(temp != NULL){
-        temp2 = temp;
-        temp = temp -> link;
-    }
-    cout<<"Peek:"<<temp2 -> data<<endl;
-}
-void isfull(node *head){
-    cout<<"Stack using linked list can't be Full"<<endl;
-}
-void isempty(node *head){
-    if(head == NULL){
-        cout<<"Stack is empty"<<endl;
-    }
-    else{
-        cout<<"Stack is not empty"<<endl;
-    }
-}
-void display(node *head) 
-{
-    node *temp = head; 
-    while(temp != NULL){
-        cout<< temp -> data<<" ";
+        cout<<temp -> data<<" ";
         temp = temp -> link;
     }
     cout<<endl;
 }
 int main()
-{   
-    node *head = NULL; //104
-    push(head,24); 
-    push(head,46);  
-    push(head,100);  
-    push(head,203);  
-    push(head,75);  
-    display(head);  // 104
-    pop(head);
-    display(head);
+{
+    struct stack *head = NULL;
+    push(&head,21);
+    push(&head,22);
+    push(&head,23);
+    push(&head,24);
+    push(&head,25);
+    display(head); 
     peek(head);
-    isfull(head);
-    isempty(head);
+    pop(&head);
+    peek(head);
 }
