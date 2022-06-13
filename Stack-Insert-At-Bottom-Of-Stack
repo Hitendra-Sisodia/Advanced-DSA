@@ -1,0 +1,39 @@
+// insert element in bottom of stack
+#include<bits/stdc++.h>
+using namespace std;
+void insertAtBottomOfStack(stack<int> &s,int num,int size)
+{
+    // base case
+    if(s.empty()){
+        s.push(num);
+        return ;
+    }
+    // recursive calls
+    else{
+        int backupOfElement = s.top();
+        s.pop();
+        insertAtBottomOfStack(s,num,size--);
+        s.push(backupOfElement);
+    }
+}
+void display(stack<int> s)
+{
+    while(!s.empty()){
+        cout<<s.top()<<" ";
+        s.pop();
+    }
+    cout<<endl;
+}
+int main()
+{
+    stack<int> s;
+    s.push(21);
+    s.push(22);
+    s.push(23);
+    s.push(24);
+    s.push(25);
+    int num = 20;
+    int count = s.size();
+    insertAtBottomOfStack(s,num,count);
+    display(s);
+}
