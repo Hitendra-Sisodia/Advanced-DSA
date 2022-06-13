@@ -1,0 +1,44 @@
+// sort an stack
+#include<bits/stdc++.h>
+using namespace std;
+void insertAtSortPos(stack<int> &s,int incoming)
+{    
+    if(s.empty() || incoming > s.top()){                
+        s.push(incoming);
+        return ;
+    }
+    int topOfStack = s.top(); 
+    s.pop();
+    insertAtSortPos(s,incoming);
+    s.push(topOfStack);
+}
+void sortStack(stack<int> &s)
+{
+    if(s.empty()){
+        return ;
+    }
+    else{
+        int num = s.top();  
+        s.pop();
+        sortStack(s);
+        insertAtSortPos(s,num);
+    }
+}
+void display(stack<int> s)
+{
+    while(!s.empty()){
+        cout<<s.top()<<" ";
+        s.pop();
+    }
+}
+int main()
+{
+    stack<int> s;
+    s.push(9);
+    s.push(2);
+    s.push(7);
+    s.push(3);
+    s.push(5);
+    sortStack(s);
+    display(s);
+}
