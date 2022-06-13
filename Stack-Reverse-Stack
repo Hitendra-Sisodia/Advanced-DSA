@@ -1,0 +1,48 @@
+// reverse an stack
+#include<bits/stdc++.h>
+using namespace std;
+void insertAtBottom(stack<int> &s,int backup)
+{
+    if(s.empty()){
+        s.push(backup);
+        return ;
+    }
+    else{
+        int num = s.top();
+        s.pop();
+        insertAtBottom(s,backup);
+        s.push(num);
+    }
+}
+void reverse(stack<int> &s)
+{   
+    if(s.empty()){
+        return ;
+    }
+    else{
+        int backup = s.top();
+        s.pop();
+        reverse(s);
+        insertAtBottom(s,backup);
+    }
+}
+void display(stack<int> s)
+{
+    while(!s.empty()){
+        cout<<s.top()<<" ";
+        s.pop();
+    }
+    cout<<endl;
+}
+int main()
+{
+    stack<int> s;
+    s.push(21);
+    s.push(22);
+    s.push(23);
+    s.push(24);
+    s.push(25);
+    display(s);  // before reverse
+    reverse(s);
+    display(s);  // after reverse
+}
