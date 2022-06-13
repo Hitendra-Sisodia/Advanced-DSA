@@ -1,0 +1,49 @@
+// check redundant brackets: are those which are used unnecessarily but in balanced form, if left bracket is present then right bracket must present.
+// not valid: ((a+b)
+// valid: (a+b)
+#include<bits/stdc++.h>
+using namespace std;
+bool redundant(stack<char> &stack, string s)
+{
+    for(int i = 0 ; i < s.length() ; i++){
+        char ch = s[i];
+        if(ch == '(' || ch == '+' || ch == '-' || ch == '*' || ch == '/'){
+            stack.push(ch);
+        }
+        else{
+            if(ch == ')'){
+                bool isRedundant = true;
+                while(stack.top() != '('){
+                    char top = stack.top();
+                    if(top == '+' || top == '-' || top == '*' || top =='/'){
+                        isRedundant = false;
+                    }
+                    stack.pop();
+                }
+                if(isRedundant == true){
+                    return true;
+                }
+                stack.pop();
+            }
+        }
+    }
+    if(!stack.empty()){
+        if(stack.top() == '('){      // bracket are present in balances still safety check
+            return true;
+        }
+    }
+    else{
+        return false;
+    }
+}
+int main()
+{
+    stack<char> s;
+    s.push(21);
+    s.push(22);
+    s.push(23);
+    s.push(24);
+    s.push(25);
+    string str = "((a+b)*)(a+b)";
+    cout<<"Given string was: "<<redundant(s,str)<<endl;
+}
