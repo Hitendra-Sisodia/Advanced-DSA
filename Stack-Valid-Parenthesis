@@ -1,0 +1,40 @@
+// valid parenthesis
+#include<bits/stdc++.h>
+using namespace std;
+bool checkValidParanthesis(stack<char> s,string str)
+{
+    for(int i = 0 ; i < str.length() ; i++){
+        char incoming = str[i];
+        // if incoming are opening parenthesis then push in stack
+        if(incoming == '(' || incoming == '{' || incoming == '['){
+            s.push(incoming);
+        }
+        // if incoming operator are closing parnethesis then compare with top of stack and pop them, if it matches.
+        else{
+            if(!s.empty()){
+                char top = s.top();
+                if((top == '(' && incoming == ')') || (top == '[' && incoming == ']') || (top == '{' && incoming == '}')){
+                    s.pop();
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+        }
+    }
+    if(s.empty()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+int main()
+{   
+    stack<char> s;
+    string str =  "[({})]";
+    cout<<checkValidParanthesis(s,str);
+}
