@@ -1,0 +1,58 @@
+// largest area in histogram
+#include<bits/stdc++.h>
+using namespace std;
+vector<int> nextSmallestElement(vector<int> arr,int n)
+{
+    stack<int> s;
+    vector<int> ans(n);
+    s.push(-1);
+    for(int i = n - 1 ; i >= 0 ; i--){
+        while(s.top() != -1 && arr[s.top()] >= arr[i]){   // little bit different storing index
+            s.pop();
+        }
+        ans[i] = s.top();
+        s.push(i);
+    }
+    return ans;  // it will return index
+}
+vector<int> prevSmallestElement(vector<int> arr,int n)
+{
+    stack<int> s;
+    vector<int> ans(n);
+    s.push(-1);
+    for(int i = 0 ; i <= n - 1 ; i++){
+        while(s.top() != -1 && arr[s.top()] >= arr[i]){
+            s.pop();
+        }
+        ans[i] = s.top();
+        s.push(i);
+    }
+    return ans;
+}
+int largestRecatangleArea(vector<int> heights)
+{
+    int n = heights.size();
+    vector<int> next(n);
+    next = nextSmallestElement(heights,n);
+    vector<int> previous(n);
+    previous = prevSmallestElement(heights,n);
+    int area = INT_MIN;
+    for(int i = 0 ; i < n ; i++){
+        int l = heights[i];
+        // if next became -1 then overall area became in -ve.
+        // if next = -1  and prev = -1 ,it also implies that that index is present all over histogram
+        // so for considering total breath of histogram we assign that  to the size(breath) of histogram(i.e is 6 in this case).
+        if(next[i] == -1){
+            next[i] = n;
+        }
+        int b = next[i] - previous[i] - 1;
+        int newArea = l * b;
+        area = max(area,newArea);
+    }
+    return area;
+}
+int main()
+{
+vector<int> height = {2,1,5,6,2,3};
+cout<<"Largest area is: "<<largestRecatangleArea(height);
+}
